@@ -18,24 +18,30 @@ angular.module('controllers', ['sensors.home.controller','sampleRouting','user.m
         };
 
         function saveData(){
-            console.log("Saving...." + loginCtrl.rememberMe);
             if(loginCtrl.rememberMe){
-                $localStorage.message = {email:loginCtrl.email, password:loginCtrl.password}
+                $localStorage.message = {
+                    email:loginCtrl.email,
+                    password:loginCtrl.password
+                }
             }
         }
         loginCtrl.login = function(){
-            console.log("Sending login request...");
             if(loginCtrl.email && loginCtrl.password){
-                $http.post('http://localhost:8484/login',
-                    {email:loginCtrl.email, pwd:loginCtrl.password,phoneId:"PC",phoneName:"PC"})
+                $http.post('http://localhost:8484/user-login',
+                    {
+                        Email:loginCtrl.email,
+                        Password:loginCtrl.password,
+                        PhoneID:"PC",
+                        PhoneName:"PC"
+                    })
                     .then(function(a){
-                        // console.log(a.data.name);
+                        console.log('result', a);
                         loginCtrl.message = a.data.response;
                         loginCtrl.showAlert = true;
                         if(a.data.status == "AOK"){
                             userModel.createUser(a.data);
                             $state.go("home");
-                            saveData()
+                            saveData();
                         }
                     });
             }

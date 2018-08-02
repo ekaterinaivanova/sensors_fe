@@ -6,65 +6,77 @@ angular.module("sensors.home.controller", ['sampleRouting','user.model','d2Direc
 
         var homeCtrl = this;
 
+        if(!userModel.isLoggedIn()){
+            $state.go("login");
+        }
+
+        var user = userModel.getLocal();
+
         homeCtrl.headers = [];
         homeCtrl.titles = [];
         
         homeCtrl.brushExtent = [0,0];
         homeCtrl.testModel = [0,0];
-
-
-        if(!userModel.isLoggedIn()){
-            $state.go("login");
-        }
         homeCtrl.graphData = null;
-        // console.log($state.params.id);
-
-        graphDataModel.getSensorsData($state.params.id).then(function(data){
-            homeCtrl.graphData = data;
-            homeCtrl.headers = [];
-            homeCtrl.titles = [];
-            
-
-            _.forEach(data,
-                function(d){
-                    homeCtrl.headers.push(Object.keys(d[0]));
-                    var t =  d3.map(d[0])
-                        .has("acc_x") ? "accelerotion" : d3.map(d[0]).has("grav_x") ? "gravity" : d3.map(d[0]).has("gyro_x") ? "rotation" : d3.map(d[0]).has("mag_x") ? "magneticfield" : "rawaxcceleration";
-                    homeCtrl.titles.push(t);
-
-                })
-            
-        });
-        var user = userModel.getLocal();
 
         homeCtrl.decimalSeparator =  user.decimal_point ? "." : ",";
-
-
         homeCtrl.separator = user.delimiter;
-        
-        homeCtrl.getMeasureMeta = function(){
+        homeCtrl.getMeasureMeta = getMeasureMeta;
+        homeCtrl.deleteMeasure = deleteMeasure;
+
+        function getCurrentMeasurements () {
+            dataModel.getMeasurements().then(function(res){
+                console.log(res)
+            }, function(err) {})
+        }
+
+
+        function getMeasureMeta() {
             console.log($state.params.id)
-           dataModel.getMeasureById($state.params.id).then(
-               function(m){
-                   console.log(m);
-                   console.log(m.id_type);
-                   console.log(m.location_start);
-                   console.log(m.location_end);
-
-               }
-           );
-
+            dataModel.getMeasureById($state.params.id).then(function(m){
+                if (m) {
+                    console.log(m);
+                    console.log(m.id_type);
+                    console.log(m.location_start);
+                    console.log(m.location_end);
+                }
+           });
         };
-        homeCtrl.getMeasureMeta();
-        //TODO
-        homeCtrl.deleteMeasure = function(){
+
+
+        function deleteMeasure(){
             console.log("deleeting....");
             dataModel.deleteMeasure($state.params.id).then(
                 function(a){
                     console.log(a);
                     $state.go('^');
-
                 }
             )
         }
+
+        function getSencorsData () {
+            graphDataModel.getSensorsData($state.params.id).then(function(data){
+                homeCtrl.graphData = data;
+                homeCtrl.headers = [];
+                homeCtrl.titles = [];
+                
+
+                _.forEach(data,
+                    function(d){
+                        homeCtrl.headers.push(Object.keys(d[0]));
+                        var t =  d3.map(d[0])
+                            .has("acc_x") ? "accelerotion" : d3.map(d[0]).has("grav_x") ? "gravity" : d3.map(d[0]).has("gyro_x") ? "rotation" : d3.map(d[0]).has("mag_x") ? "magneticfield" : "rawaxcceleration";
+                        homeCtrl.titles.push(t);
+
+                    })
+                
+            }); 
+        }
+
+        
+        // getSencorsData()
+        // homeCtrl.getMeasureMeta();
+        //TODO
+        getCurrentMeasurements()
+        
     });

@@ -9,16 +9,16 @@ var sampleApp = angular.module('sampleRouting', [
     'sensors.top-panel.controller',
     "sensors.home.users.controller",
     "sensors.home.users.sidebar.controller",
-   "sensors.users.data.panel.controller",
-   "sensors.home.users.data.controller",
-   'ngSanitize',
-   'ngCsv',
-   "sensors.account",
-   'service-module'
+    "sensors.users.data.panel.controller",
+    "sensors.home.users.data.controller",
+    'ngSanitize',
+    'ngCsv',
+    "sensors.account",
+    'constant-module'
 ]);
 
 
-sampleApp.config(function($stateProvider,$urlRouterProvider){
+sampleApp.config(function($stateProvider,$urlRouterProvider, $httpProvider){
     $stateProvider.state("account", {
         url: "/account",
         views: {
@@ -179,6 +179,8 @@ sampleApp.config(function($stateProvider,$urlRouterProvider){
 
     });
     $urlRouterProvider.otherwise('/home');
+
+  
 
 
 
