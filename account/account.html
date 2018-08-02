@@ -1,0 +1,80 @@
+<h1>My account</h1>
+<!--< class="user-info">-->
+    <div class="row" >
+        <div class="col-xs-6">
+            <p>Name</p>
+        </div>
+        <div class="col-xs-6">
+            <p ng-bind="accountCtrl.getUser().name"></p>
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col-xs-6">
+            <p>Lastname</p>
+        </div>
+        <div class="col-xs-6">
+            <p ng-bind="accountCtrl.getUser().lastname"></p>
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col-xs-6">
+            <p>Email</p>
+        </div>
+        <div class="col-xs-6">
+            <p ng-bind="accountCtrl.getUser().email"></p>
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col-xs-6">
+            <p>Administrator</p>
+        </div>
+        <div class="col-xs-6">
+            <p>{{accountCtrl.getUser().admin ? "YES" : "NO"}}</p>
+
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col-xs-6">
+            <p>Delimiter</p>
+        </div>
+        <div class="col-xs-6">
+            <!--<p>{{accountCtrl.getUser().delimiter}}</p>-->
+            <input type="text" ng-model="accountCtrl.delimiter">
+
+
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col-xs-6">
+            <p>Decimal delimiter</p>
+        </div>
+        <div class="col-xs-6">
+            <!--<p>{{accountCtrl.getUser().decimal_point ? "." : ","}}</p>-->
+            <select ng-model="accountCtrl.decimalSeparator" ng-options="o as o for o in accountCtrl.decimalPointOptions" ng-change="accountCtrl.change()"></select>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="row" >
+        <div class=col-xs-3>
+            <button type="submit"  class="btn btn-info btn-sm" ng-click="accountCtrl.saveChanges()">Save</button>
+
+        </div>
+        <div class=col-xs-3>
+            <button type="button"  class="btn btn-info btn-sm" ng-click="accountCtrl.cancel()">Cancel</button>
+
+        </div>
+        <div class=col-xs-3 >
+            <button type="button" class="btn btn-danger btn-sm "  ng-click="">Delete</button>
+
+        </div>
+
+    </div>
+
+
+
+
+</div>

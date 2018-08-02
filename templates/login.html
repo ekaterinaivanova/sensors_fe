@@ -1,0 +1,40 @@
+<!--<div class="container">-->
+<div class="row">
+    <div class="col-xs-8 col-lg-7">
+        <h2>Login screen</h2>
+        <div ng-bind="loginCtrl.message"></div>
+
+        <form class="edit-form" role="form" ng-submit="loginCtrl.login()" novalidate>
+
+            <div class="form-group">
+                <label>Email</label>
+
+                <p ng-bind="email"></p>
+            <input type="text" class="form-control" ng-model="loginCtrl.email"  placeholder="Enter email">
+            </div>
+
+            <div class="form">
+
+                <label>Password</label>
+                <input type="password" class="form-control"  placeholder="Enter password" ng-model="loginCtrl.password">
+                <p></p>
+                <div class="alert alert-danger" role="alert"  ng-show="loginCtrl.showAlert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <p ng-bind="loginCtrl.message"></p>
+                </div>
+                <p></p>
+                <button type="submit"  class="btn btn-info btn-sm">Login</button>
+                <button type="button" class="btn btn-default btn-sm pull-right" ng-click="loginCtrl.redirectToRegister()">Register</button>
+                <!--<button type="button" class="btn btn-default btn-lg pull-right" >Register</button>-->
+                <br>
+                <label>
+                    <input type="checkbox" ng-model="loginCtrl.rememberMe">
+                    Remember me
+                </label>
+
+
+            </div>
+        </form>
+    </div>
+</div>
+<!--</div>-->

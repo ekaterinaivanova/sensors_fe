@@ -1,0 +1,77 @@
+<div class="row">
+    <div class="col-xs-12  user-info-container">
+        <div class="row" >
+            <div class="col-xs-12">
+                <h1>User information</h1>
+            </div>
+        </div>
+        <div class="user-info">
+            <div class="row" >
+                <div class="col-xs-6">
+                    <p>Name</p>
+                </div>
+                <div class="col-xs-6">
+                    <p ng-bind="homeUsersCtrl.user.name"></p>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col-xs-6">
+                    <p>Lastname</p>
+                </div>
+                <div class="col-xs-6">
+                    <p ng-bind="homeUsersCtrl.user.lastname"></p>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col-xs-6">
+                    <p>Email</p>
+                </div>
+                <div class="col-xs-6">
+                    <p ng-bind="homeUsersCtrl.user.email"></p>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col-xs-6">
+                    <p>Administrator</p>
+                </div>
+                <div class="col-xs-6">
+                    <!--<p>{{homeUsersCtrl.user.admin ? "YES" : "NO"}}</p>-->
+                    <p>
+                        <input ng-show="!homeUsersCtrl.user.admin" type="checkbox"
+                               ng-init = "homeUsersCtrl.admin"
+                               ng-model="homeUsersCtrl.admin"
+                               ng-change="homeUsersCtrl.admin"
+                        />
+                        {{homeUsersCtrl.admin ? "YES" : "NO"}}
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row" ng-show="!homeUsersCtrl.user.admin">
+            <div class=col-xs-3>
+                <button type="submit"  class="btn btn-info btn-sm" ng-click="homeUsersCtrl.updateUser()">Save</button>
+
+            </div>
+            <div class=col-xs-3>
+                <button type="button"  class="btn btn-info btn-sm" ng-click="homeUsersCtrl.cancel()">Cancel</button>
+
+            </div>
+            <div class=col-xs-3 >
+                <button type="button" class="btn btn-danger btn-sm "  ng-click="homeUsersCtrl.delete()">Delete</button>
+
+            </div>
+
+        </div>
+
+        <div class=" show-measures">
+            <button type="button" class=" btn btn-info btn-sm " ng-click="homeUsersCtrl.goToMeasures()" >Show {{homeUsersCtrl.user.name}}'s measures</button>
+
+        </div>
+    </div>
+
+</div>
+

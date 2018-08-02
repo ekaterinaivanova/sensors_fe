@@ -1,0 +1,5 @@
+<ul class="sidebar-nav">
+    <li ng-repeat="user in homeUsersCtrl.users">
+       <a ui-sref="users.user({id: user.id_user})" ng-bind="user.email"></a>
+    </li>
+</ul>

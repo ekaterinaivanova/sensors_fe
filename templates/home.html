@@ -1,0 +1,40 @@
+<div class="user-info-container">
+    <!--<h2>Home screen</h2>-->
+    <!--<div >Welcome {{homeCtrl.name}}</div>-->
+
+
+    <div class="alert alert-danger" role="alert"  ng-show="homeCtrl.graphData.length == 0">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <p >There is no data</p>
+    </div>
+    <!--<div>Hello</div>-->
+
+    <div class="graph-holder" ng-repeat="data in homeCtrl.graphData" ng-show="data.length > 0">
+
+        <!--<p ng-bind="homeCtrl.testModel"></p>-->
+        <!--<input ng-model="homeCtrl.testModel">-->
+
+
+        <line-chart ng-model="homeCtrl.testModel" data="data"   ng-show="data != null"></line-chart>
+
+        <button  class="btn btn-default btn-sm center-block "
+                 type="button"
+                 ng-csv="data"
+                 filename="{{ homeCtrl.titles[$index] }}.csv"
+                 csv-header="homeCtrl.headers[$index]"
+                 field-separator="{{homeCtrl.separator}}"
+                 decimal-separator="{{homeCtrl.decimalSeparator}}"
+        >Export</button>
+        <p></p>
+
+    </div>
+</div>
+<!--<div class="row">-->
+    <!--<div class="col-xs-12">-->
+        <!--<button  class="btn btn-danger btn-sm center-block" type="button" ng-click="homeCtrl.deleteMeasure()">Delete measure</button>-->
+
+    <!--</div>-->
+<!--</div>-->
+
+
+

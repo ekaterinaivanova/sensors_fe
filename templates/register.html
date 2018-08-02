@@ -1,0 +1,47 @@
+<!--<div class="container">-->
+    <div class="row">
+        <div class="col-xs-8 col-xs-offset-2 col-lg-6 col-lg-offset-3">
+            <h2>Register screen</h2>
+            <!--<div>{{registerCtrl.message}}</div>-->
+            <form ng-submit="registerCtrl.register()">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" class="form-control" ng-model="registerCtrl.email"  placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" ng-model="registerCtrl.name" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label>Lastname</label>
+                    <input type="text" class="form-control" ng-model="registerCtrl.lastname" placeholder="Enter your lastname">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" ng-model="registerCtrl.password" placeholder="Enter your password">
+                </div>
+                <div class="form-group">
+                    <label>Re-password</label>
+                    <input type="password" class="form-control" ng-model="registerCtrl.repassword" placeholder="Re enter your password">
+                </div>
+                <p></p>
+                <div class="alert alert-danger" role="alert"  ng-show="showAlert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <p ng-bind="registerCtrl.message"></p>
+                </div>
+                <p></p>
+
+                <p></p>
+                <div class="alert alert-danger" role="alert"  ng-show="registerCtrl.showAlert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <p ng-bind="registerCtrl.message"></p>
+                </div>
+                <p></p>
+
+                <button type="submit"  class="btn btn-info btn-sm">Register</button>
+                <button type="button" class="btn btn-default btn-sm pull-right"  ng-click="registerCtrl.redirectToLogin()">Login</button>
+            </form>
+        </div>
+    </div>
+<!--</div>-->
+

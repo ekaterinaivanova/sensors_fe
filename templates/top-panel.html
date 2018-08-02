@@ -1,0 +1,20 @@
+<!--<div class="container">-->
+<div class="row">
+
+    <div class="col-xs-3 col-lg-2" id="top-panel-buttons" ng-repeat="button in topPanelCtrl.getButtons()"
+         ng-click="topPanelCtrl.buttonTapped(button.action)" >
+        <a>{{button.name}}</a>
+    </div>
+        <!--<div class="col-xs-3 "  ng-show="topPanelCtrl.isLoggedIn()" >-->
+            <!--<h4>-->
+                <!--Welcome {{topPanelCtrl.getUserName()}}-->
+            <!--</h4>-->
+        <!--</div>-->
+</div>
+
+<!--<div class="row " ng-show="topPanelCtrl.isAdmin()">-->
+
+<!--</div>-->
+<!--</div>-->
+
+<!--<div  ng-show="topPanelCtrl.isLoggedIn()" >Welcome {{topPanelCtrl.getUserName()}}</div>-->
