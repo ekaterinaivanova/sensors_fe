@@ -4,7 +4,7 @@
 angular.module("sensors.data.panel.controller", ['sampleRouting','user.model','d2Directive','data.model','graph.data.model'])
 
 
-    .controller('DataController', function($state, $http, userModel, graphDataModel, dataModel) {
+    .controller('DataController', function($state, $http, userModel, graphDataModel, dataModel, apiService) {
         var dataCtrl = this;
         if(!userModel.isLoggedIn()){
             $state.go("login");
@@ -13,10 +13,9 @@ angular.module("sensors.data.panel.controller", ['sampleRouting','user.model','d
         dataCtrl.email = userModel.getEmail();
 
         if(userModel.isLoggedIn()){
-        console.log("User is logged in" );
-            dataModel.getMeasures(userModel.getId()).then(
+            dataModel.getMeasurements(userModel.getId()).then(
                 function(result){
-                    dataCtrl.measures = result;
+                    dataCtrl.measurements = result.data;
                 }
             );
         }
@@ -36,16 +35,25 @@ angular.module("sensors.data.panel.controller", ['sampleRouting','user.model','d
             return measure.id_measure == $state.params.id ;
         }
 
-        //TODO
-        dataCtrl.deleteMeasure = function(id){
-            console.log("deleeting....")
-            dataModel.deleteMeasure(id).then(
-                function(a){
-                    console.log(a);
-                    // dataCtrl.$apply()
-                    $state.reload();
+        dataCtrl.getReplications = function(measurementID) {
+            apiService('replications').query({
+                measurementID: measurementID
+            }).then(function(res) {
+                dataModel.selectedOption = measurementID
+                console.log(res.data)
+            }, function(err) {
 
-                }
-            )
+            })
+        }
+
+        //TODO
+        dataCtrl.deleteMeasurement = function(id){
+            dataModel.deleteMeasurement(id).then(function() {
+                _.remove(dataCtrl.measurements, function(item) {
+                    return item.ID === id;
+                })
+            },function() {
+                console.log('Couldn\t  delete' + id)
+            })
         }
     });

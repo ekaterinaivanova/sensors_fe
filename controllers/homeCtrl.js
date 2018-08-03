@@ -26,7 +26,7 @@ angular.module("sensors.home.controller", ['sampleRouting','user.model','d2Direc
 
         function getCurrentMeasurements () {
             dataModel.getMeasurements().then(function(res){
-                console.log(res)
+                homeCtrl.measurements = res.data;
             }, function(err) {})
         }
 

@@ -2,7 +2,7 @@
  * Created by Administrator on 11.5.2016.
  */
 angular.module('data.model', [])
-    .service('dataModel', function($http, userModel, $q, constants) {
+    .service('dataModel', function($http, userModel, $q, apiService) {
     	var dataModel = this;
         var userid = null;
         var measureData = {
@@ -14,22 +14,20 @@ angular.module('data.model', [])
         dataModel.getMeasurements = getMeasurements;
 
         function getMeasures(){
-          return   $http.post('http://212.235.190.198:8484/measures',{userid:userid})
-                .then(function(a){
-                    console.log("Measure response is ... ");
-                    console.log(a);
-                    measureData.availableOptions = a.data.res;
-                    return a.data.res.reverse();
-                })
+
+           return apiService('measurements').query().then(function(res) {
+            	return res.data.data;
+            }, function(err) {
+            	return [];
+            })
         }
 
-        function getMeasurements(){
+        function getMeasurements(id){
+
         	var deferred = $q.defer();
-        	var endpoint = constants.apiEndpoint + 'measurements';
-        	console.log(endpoint)
-            $http.get(endpoint).then(function(res){
-                deferred.resolve(res.data);
-            }, function (err) {
+            apiService('measurements' + (typeof id !== 'undefined' ? ('/' + id) : '')).query().then(function(res) {
+            	deferred.resolve(res.data);
+            }, function(err) {
             	deferred.reject(err);
             })
           return deferred.promise;
@@ -79,23 +77,17 @@ angular.module('data.model', [])
         }
 
 
-        dataModel.deleteMeasure = function(id) {
-            return $http.put('http://212.235.190.198:8484/delete/measure', {
-                    measureid: id
-                }).then(function(a) {
-                    console.log(a.data)
-                    if (a.data.status == "AOK") {
-                        var deferred = $q.defer();
-                        dataModel.getMeasures().then(function() {
-                            deferred.resolve(removeDeletedMeasure(id))
-                        });
-                        return deferred.promise;
-
-                    } else {
-                        return a.data.res;
-
-                    }
-
-                })
+        dataModel.deleteMeasurement = function(id) {
+        	var deferred = $q.defer();
+            return apiService('measurements/' + id).delete().then(function(res) {
+            	if (res.data.status == "AOK") {
+                    deferred.resolve();
+                } else {
+                    deferred.reject()
+                }
+            }, function() {
+            	deferred.reject();
+            })
+            return deferred.promise;
         };
     });

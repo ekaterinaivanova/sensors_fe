@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/sensors.css">
     <link rel="stylesheet" href="assets/css/graph.css">
+    <link rel="stylesheet" href="assets/css/side-nav.css">
     <!--<link href="assets/css/simple-sidebar.css" rel="stylesheet">-->
 
 
@@ -20,7 +21,7 @@
 </head>
 <body ng-app="sampleRouting">
 
-<div class="container-fluid">
+<div>
 
     <div class="row header-section">
         <div class="col-xs-12 header">
@@ -34,15 +35,8 @@
 
 
 
-    <!--<div class="row graph-section">-->
-        <!--<div class="col-xs-12">-->
-            <!--<div class="row graph-wrapper">-->
-                <div  class=" col-xs-4 col-sm-3 col-md-2" ui-view="sidebar"></div>
+                <div  class="side-nav-container col-xs-4 col-sm-3 col-md-2" ui-view="sidebar"></div>
                 <div   class="col-xs-8 col-sm-9 col-md-10"  ui-view="main"></div>
-            <!--</div>-->
-<!---->
-        <!--</div>-->
-    <!--</div>-->
 </div>
 
 
@@ -64,6 +58,7 @@
 
 <script src="assets/scripts/ng-csv.min.js"></script>
 <script src="assets/scripts/angular-sanitize.min.js"></script>
+<script src="node_modules/lodash/lodash.min.js"></script>
 <!--<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>-->
 
 

@@ -2,7 +2,7 @@
  * Created by EkaterinaAcc on 15-Apr-16.
  */
 angular.module('controllers', ['sensors.home.controller','sampleRouting','user.model','d2Directive',"sensors.login.controller"])
-    .controller('LoginController', function LoginController($state, $http, userModel,$localStorage){
+    .controller('LoginController', function LoginController($state, apiService, userModel,$localStorage){
         var loginCtrl = this;
         loginCtrl.message = 'This is login screen';
         var user = $localStorage.message;
@@ -27,23 +27,20 @@ angular.module('controllers', ['sensors.home.controller','sampleRouting','user.m
         }
         loginCtrl.login = function(){
             if(loginCtrl.email && loginCtrl.password){
-                $http.post('http://localhost:8484/user-login',
-                    {
-                        Email:loginCtrl.email,
-                        Password:loginCtrl.password,
-                        PhoneID:"PC",
-                        PhoneName:"PC"
-                    })
-                    .then(function(a){
-                        console.log('result', a);
-                        loginCtrl.message = a.data.response;
-                        loginCtrl.showAlert = true;
-                        if(a.data.status == "AOK"){
-                            userModel.createUser(a.data);
-                            $state.go("home");
-                            saveData();
-                        }
-                    });
+                apiService('user-login').post(null, {
+                    Email:loginCtrl.email,
+                    Password:loginCtrl.password,
+                    PhoneID:"PC",
+                    PhoneName:"PC"
+                }).then(function(res){
+                    loginCtrl.message = res.data.response;
+                    loginCtrl.showAlert = true;
+                    if(res.data.status == "AOK"){
+                        userModel.createUser(res.data);
+                        $state.go("home");
+                        saveData();
+                    }
+                });
             }
         }
 
