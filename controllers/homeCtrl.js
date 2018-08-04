@@ -49,7 +49,7 @@ angular.module("sensors.home.controller", ['sampleRouting','user.model','d2Direc
             dataModel.deleteMeasure($state.params.id).then(
                 function(a){
                     console.log(a);
-                    $state.go('^');
+                    // $state.go('^');
                 }
             )
         }

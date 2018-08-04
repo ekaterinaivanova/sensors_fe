@@ -5,7 +5,7 @@
 angular.module("sensors.home.users.sidebar.controller", ['sampleRouting','home.users.model','user.model'])
     .controller('HomeUsersSidebarController', function($state, $http, userModel, homeUsersModel) {
         if(!userModel.isAdmin()){
-            $state.go("home");
+            // $state.go("home");
         }else{
             var homeUsersCtrl = this;
             homeUsersCtrl.users = null;

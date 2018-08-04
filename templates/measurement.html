@@ -1,0 +1,26 @@
+<div align class="measurement-container">
+	<div class="header-container">
+		<h3>Measurement properties</h3> 
+		<div class="badge">
+			<span class="active" ng-if="ctrl.measurement.Active">Active</span>
+			<span class="inactive" ng-if="!ctrl.measurement.Active">Inactive</span>
+		</div>
+	</div>
+	<div class="property" ng-repeat="property in ctrl.measurementProperties">
+		<span class="property-title">{{property.title}}:</span>
+		<span class="property-value" ng-switch="property.type">
+			<span ng-switch-when='Date'>
+				{ctrl.measurement[property.param]}} | |date:'dd.MM.yyyy HH:mm'
+			</span>
+			<span ng-switch-default>
+				{{ctrl.measurement[property.param]}}
+			</span>
+		</span>
+	</div>
+
+	<p>This measurement has {{ctrl.replicationNumber}} replications.</p>
+	<div class="bottom-tollbar">
+		<button type="button" class="btn btn-success">Create Replication</button>
+	</div>
+	
+</div>

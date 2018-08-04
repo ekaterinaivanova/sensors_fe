@@ -14,7 +14,7 @@ angular.module("sensors.home.users.controller", ['sampleRouting'])
                 if(usersCtrl.user){
                     usersCtrl.admin = usersCtrl.user.admin ? true : false;
                 }else{
-                    $state.go('^');
+                    // $state.go('^');
                 }
                 //console.log(usersCtrl.admin)
             }
@@ -28,7 +28,7 @@ angular.module("sensors.home.users.controller", ['sampleRouting'])
                 function(result){
                     //console.log(result);
                     //TODO something with the result
-                    $state.go('^');
+                    // $state.go('^');
 
                 }
             )

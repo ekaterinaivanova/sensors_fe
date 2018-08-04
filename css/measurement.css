@@ -1,0 +1,68 @@
+.measurement-container {
+	padding: 16px;
+	margin: 24px;
+	background-color: #f7f7f7;
+	border-radius: 5px; 
+	border: 1px solid #e0e0e0
+}
+
+.measurement-container .header-container {
+	display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.measurement-container h3 {
+	color: green;
+	margin: 0 24px 0 0;
+	font-size: 1.4em;
+	text-transform: uppercase;
+}
+.measurement-container .property:not(:last-child) {
+	margin-bottom: 12px;
+}
+.measurement-container .property-title {
+	font-size: 1.2em;
+	font-weight: 500;
+	margin-right: 8px;
+	color: #848484;
+	display: inline-block;
+}
+.measurement-container .property-value {
+	font-size: 1.1em;
+	color: #575757;
+	font-weight: 600;	
+}
+
+.measurement-container p {
+	font-family: serif;
+    font-size: 1.1em;
+    color: #007f00;
+}
+
+.badge {
+	border: solid 1px #e0e0e0;
+    border-radius: 16px;
+    padding: 16px;
+    background-color: white;
+}
+
+.badge .active {
+	color:green;
+}
+.badge .inactive  {
+	color:red;
+}
+
+.measurement-container .bottom-tollbar {
+	border-top: 1px solid #e0e0e0;
+	height: 52px;
+	position: relative;
+}
+
+.measurement-container .bottom-tollbar button {
+	position: absolute;
+    right: 0;
+    margin-top: 16px;
+}

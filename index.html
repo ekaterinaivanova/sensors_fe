@@ -9,9 +9,10 @@
     <!--<link rel="stylesheet" href="assets/css/normalize.css">-->
 
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/sensors.css">
-    <link rel="stylesheet" href="assets/css/graph.css">
-    <link rel="stylesheet" href="assets/css/side-nav.css">
+    <link rel="stylesheet" href="css/sensors.css">
+    <link rel="stylesheet" href="css/graph.css">
+    <link rel="stylesheet" href="css/side-nav.css">
+    <link rel="stylesheet" href="css/measurement.css">
     <!--<link href="assets/css/simple-sidebar.css" rel="stylesheet">-->
 
 
@@ -21,22 +22,10 @@
 </head>
 <body ng-app="sampleRouting">
 
-<div>
-
-    <div class="row header-section">
-        <div class="col-xs-12 header">
-            <h1 ui-sref="home">
-                Sensors data
-            </h1>
-        </div>
-
-        <div class="col-xs-12 top_panel" ui-view="toppanel"></div>
-    </div>
-
-
-
-                <div  class="side-nav-container col-xs-4 col-sm-3 col-md-2" ui-view="sidebar"></div>
-                <div   class="col-xs-8 col-sm-9 col-md-10"  ui-view="main"></div>
+<div>      
+    <div class="col-xs-12 header-section row" ui-view="toppanel"></div>
+    <div class="side-nav-container" ui-view="sidebar"></div>
+    <div class="home-container" ui-view="main"></div>
 </div>
 
 
@@ -59,6 +48,8 @@
 <script src="assets/scripts/ng-csv.min.js"></script>
 <script src="assets/scripts/angular-sanitize.min.js"></script>
 <script src="node_modules/lodash/lodash.min.js"></script>
+
+<script src="node_modules/async/dist/async.min.js"></script>
 <!--<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>-->
 
 
@@ -69,7 +60,7 @@
 
 <script src="controllers/controllers.js"></script>
 <script src="controllers/homeUsersCtrl.js"></script>
-<script src="controllers/usersDataCtrl.js"></script>
+<script src="controllers/sidebar.controller.js"></script>
 <script src="controllers/homeUsersDataCtrl.js"></script>
 <script src="account/accountCtrl.js"></script>
 
@@ -79,11 +70,13 @@
 <script src="controllers/registerCtrl.js"></script>
 <script src="controllers/topPanelCtrl.js"></script>
 <script src="controllers/dataCtrl.js"></script>
+<script src="controllers/measurement.controller.js"></script>
 
 <script src="services/user-model.js"></script>
 <script src="services/home-users-model.js"></script>
 
 <script src="d3/d3Directive.js"></script>
+<script src="directives/align.directive.js"></script>
 <script src="services/data-model.js"></script>
 <script src="services/graph-data-model.js"></script>
 <script src="services/api-service.js"></script>

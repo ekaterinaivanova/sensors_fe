@@ -1,9 +1,8 @@
 <ul class="sidebar-nav">
-    <li ng-show="usersDataSidebarCtrl.measures.length == 0">There is now measures</li>
-    <li ng-repeat="option in usersDataSidebarCtrl.measures"
-        ng-class="{'active':usersDataSidebarCtrl.isCurrentMeasure(option)}">
-        <!--ui-sref="home.measure({measure: option.id_measure})"-->
-        <a  ng-click="usersDataSidebarCtrl.getSensors(option.id_measure)">
+    <li ng-show="vm.measures.length == 0">There is now measures</li>
+    <li ng-repeat="option in vm.measures"
+        ng-class="{'active':vm.isCurrentMeasure(option)}">
+        <a  ng-click="vm.getSensors(option.id_measure)">
             {{option.time_start |date:'dd.MM.yyyy HH:mm'}}
         </a>
 

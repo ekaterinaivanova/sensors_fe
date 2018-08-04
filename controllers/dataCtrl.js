@@ -1,59 +1,87 @@
 /**
  * Created by Administrator on 11.5.2016.
  */
-angular.module("sensors.data.panel.controller", ['sampleRouting','user.model','d2Directive','data.model','graph.data.model'])
+angular.module("sensors.data.panel.controller", [
+    'sampleRouting','user.model','d2Directive','data.model','graph.data.model'])
 
 
-    .controller('DataController', function($state, $http, userModel, graphDataModel, dataModel, apiService) {
-        var dataCtrl = this;
-        if(!userModel.isLoggedIn()){
-            $state.go("login");
-        }
-        dataCtrl.measures = null;
-        dataCtrl.email = userModel.getEmail();
+    .controller('DataController', function(
+        $state,
+        $http,
+        userModel,
+        graphDataModel,
+        dataModel,
+        apiService
+    ) {
+        var vm = this;
+        vm.email = userModel.getEmail();
+        vm.measures = null;
 
-        if(userModel.isLoggedIn()){
-            dataModel.getMeasurements(userModel.getId()).then(
-                function(result){
-                    dataCtrl.measurements = result.data;
+        function initialize() {
+            if(!userModel.isLoggedIn()){
+                $state.go("login");
+            } else {
+                switch ($state.current.name) {
+                    case 'home':
+                       getMeasurements();
+                    break;
+                    case 'measurement':
+                        getReplications($state.params.id);
+                    break;
+                    default:
                 }
-            );
+                
+            }
+
+
+
+
+            // vm.getSensors($state.params.id);
+
         }
-        dataCtrl.getSensors = function(measure){
-            //dataCtrl.showSelectMeasure = true;
+
+
+        vm.getSensors = function(measure){
+            //vm.showSelectMeasure = true;
             // getMeasuresById();
             dataModel.selectedOption = measure;
-            $state.go("home.measure", {id:measure});
+            // $state.go("home.replication", {id:measure});
             //console.log( graphDataModel.getData());
 
         };
-        dataCtrl.getSensors($state.params.id);
 
-        dataCtrl.isCurrentMeasure = function(measure){
-            // console.log(measure.id_measure + "  " + $state.params.id + $state.params.measureid) ;
+        
 
+        vm.isCurrentMeasure = function(measure){
             return measure.id_measure == $state.params.id ;
         }
 
-        dataCtrl.getReplications = function(measurementID) {
+        function getReplications(measurementID) {
             apiService('replications').query({
                 measurementID: measurementID
             }).then(function(res) {
                 dataModel.selectedOption = measurementID
-                console.log(res.data)
+                vm.menuItems = res.data.data;
             }, function(err) {
 
             })
         }
 
+        function getMeasurements() {
+            dataModel.getMeasurements(userModel.getId()).then(function(result){
+                vm.menuItems = result.data;
+            });
+        }
+
         //TODO
-        dataCtrl.deleteMeasurement = function(id){
+        vm.deleteMeasurement = function(id){
             dataModel.deleteMeasurement(id).then(function() {
-                _.remove(dataCtrl.measurements, function(item) {
+                _.remove(vm.measurements, function(item) {
                     return item.ID === id;
                 })
             },function() {
                 console.log('Couldn\t  delete' + id)
             })
         }
+        initialize();
     });

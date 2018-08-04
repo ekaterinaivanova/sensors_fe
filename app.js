@@ -7,20 +7,23 @@ var sampleApp = angular.module('sampleRouting', [
     'sensors.data.panel.controller',
     'controllers',
     'sensors.top-panel.controller',
-    "sensors.home.users.controller",
-    "sensors.home.users.sidebar.controller",
-    "sensors.users.data.panel.controller",
-    "sensors.home.users.data.controller",
+    'sensors.home.users.controller',
+    'sensors.home.users.sidebar.controller',
+    'sensors.users.data.panel.controller',
+    'sensors.home.users.data.controller',
     'ngSanitize',
     'ngCsv',
-    "sensors.account",
-    'constant-module'
+    'sensors.account',
+    'constant-module',
+    'sensors.measurements',
+    'sensor.directive'
 ]);
 
 
 sampleApp.config(function($stateProvider,$urlRouterProvider, $httpProvider){
-    $stateProvider.state("account", {
-        url: "/account",
+
+    $stateProvider.state('account', {
+        url: '/account',
         views: {
             'main@': {
                 templateUrl: 'account/account.html',
@@ -34,14 +37,14 @@ sampleApp.config(function($stateProvider,$urlRouterProvider, $httpProvider){
             }
             // 'sidebar@':{
             //     templateUrl: 'templates/sidebar.html',
-            //     controller: 'DataController as dataCtrl'
+            //     controller: 'DataController as vm'
             // }
         }
 
     });
 
-    $stateProvider.state("home",{
-        url:"/home",
+    $stateProvider.state('home',{
+        url:'/home',
         views:{
             //'main@':{
             //    templateUrl: 'templates/home.html',
@@ -55,14 +58,16 @@ sampleApp.config(function($stateProvider,$urlRouterProvider, $httpProvider){
             },
             'sidebar@':{
                 templateUrl: 'templates/sidebar.html',
-                controller: 'DataController as dataCtrl'
+                controller: 'DataController as vm'
             }
         }
 
     });
 
-    $stateProvider.state("home.measure",{
-        url:"/:id",
+ 
+
+    $stateProvider.state('replication',{
+        url:'/replication/:id',
         views:{
             'main@':{
                 templateUrl: 'templates/home.html',
@@ -76,14 +81,33 @@ sampleApp.config(function($stateProvider,$urlRouterProvider, $httpProvider){
             },
             'sidebar@':{
                 templateUrl: 'templates/sidebar.html',
-                controller: 'DataController as dataCtrl'
+                controller: 'DataController as vm'
             }
         }
 
     });
 
-    $stateProvider.state("users",{
-        url:"/users",
+    $stateProvider.state('measurement',{
+        url:'/measurement/:id',
+        views:{
+            'main@':{
+                templateUrl: 'templates/measurement.html',
+                controller: 'MeasurementController as ctrl'
+            },
+            'toppanel@':{
+                templateUrl: 'templates/top-panel.html',
+                controller: 'TopPanelController as topPanelCtrl'
+            },
+            'sidebar@':{
+                templateUrl: 'templates/sidebar.html',
+                controller: 'DataController as vm'
+            }
+        }
+
+    });
+
+    $stateProvider.state('users',{
+        url:'/users',
         views:{
 
             'toppanel@':{
@@ -97,8 +121,8 @@ sampleApp.config(function($stateProvider,$urlRouterProvider, $httpProvider){
         }
 
     });
-    $stateProvider.state("users.user",{
-        url:"/:id",
+    $stateProvider.state('users.user',{
+        url:'/:id',
         views:{
             'main@':{
                 templateUrl: 'templates/home-users.html',
@@ -116,8 +140,8 @@ sampleApp.config(function($stateProvider,$urlRouterProvider, $httpProvider){
         }
 
     });
-    $stateProvider.state("users.user.data",{
-        url:"/data",
+    $stateProvider.state('users.user.data',{
+        url:'/data',
         views:{
             'main@':{
                 //templateUrl: 'templates/home-users.html',
@@ -130,14 +154,14 @@ sampleApp.config(function($stateProvider,$urlRouterProvider, $httpProvider){
             },
             'sidebar@':{
                 templateUrl: 'templates/users-data-sidebar.html',
-                controller: 'UsersDataSidebarController as usersDataSidebarCtrl'
+                controller: 'UsersDataSidebarController as vm'
             }
         }
 
     });
 
-    $stateProvider.state("users.user.data.measure",{
-        url:"/:measureid",
+    $stateProvider.state('users.user.data.measure',{
+        url:'/:measureid',
         views:{
             'main@':{
                 templateUrl: 'templates/home-users-data.html',
@@ -156,8 +180,8 @@ sampleApp.config(function($stateProvider,$urlRouterProvider, $httpProvider){
 
     });
 
-    $stateProvider.state("login",{
-        url:"/login",
+    $stateProvider.state('login',{
+        url:'/login',
         views:{
             'main@':{
                 templateUrl: 'templates/login.html',
@@ -167,8 +191,8 @@ sampleApp.config(function($stateProvider,$urlRouterProvider, $httpProvider){
         }
 
     });
-    $stateProvider.state("register",{
-        url:"/register",
+    $stateProvider.state('register',{
+        url:'/register',
         views:{
             'main@':{
                 templateUrl: 'templates/register.html',

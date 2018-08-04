@@ -1,9 +1,10 @@
     <ul class="sidebar-nav">
         <li 
-        	class="P-8" ng-repeat="option in dataCtrl.measurements" ng-class="{'active':dataCtrl.isCurrentMeasure(option)}">
-            <a  ng-click="dataCtrl.getReplications(option.ID)">
+        	class="P-8" ng-repeat="option in vm.menuItems" 
+        	ng-class="{'active':vm.isCurrentMeasure(option)}">
+            <a  ui-sref="measurement({id: option.ID})">
                 {{option.MeasurementDate |date:'dd.MM.yyyy HH:mm'}}
             </a>
-             <img class="close_img" src="assets/img/close1.png" ng-click="dataCtrl.deleteMeasurement(option.ID)">
+             <img class="close_img" src="assets/img/close1.png" ng-click="vm.deleteMeasurement(option.ID)">
         </li>
     </ul>
