@@ -2,8 +2,8 @@
         <li 
         	class="P-8" ng-repeat="option in vm.menuItems" 
         	ng-class="{'active':vm.isCurrentMeasure(option)}">
-            <a  ui-sref="measurement({id: option.ID})">
-                {{option.MeasurementDate |date:'dd.MM.yyyy HH:mm'}}
+            <a  ng-click="vm.redirectTo(option)">
+               {{option[vm.dateParam] |date:'dd.MM.yyyy HH:mm'}}
             </a>
              <img class="close_img" src="assets/img/close1.png" ng-click="vm.deleteMeasurement(option.ID)">
         </li>

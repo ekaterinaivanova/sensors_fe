@@ -55,13 +55,13 @@
 	color:red;
 }
 
-.measurement-container .bottom-tollbar {
+.measurement-container .bottom-toolbar {
 	border-top: 1px solid #e0e0e0;
 	height: 52px;
 	position: relative;
 }
 
-.measurement-container .bottom-tollbar button {
+.measurement-container .bottom-toolbar button {
 	position: absolute;
     right: 0;
     margin-top: 16px;

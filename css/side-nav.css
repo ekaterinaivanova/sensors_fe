@@ -1,8 +1,8 @@
 .side-nav-container {
 	padding-left: 0!important;
-    height: 100%;
+    height: calc(100% - 72px);
     position: absolute;
-    width: 156px;
+    min-width: 156px;
     background-color: #f7f7f7;
     top:72px;
 

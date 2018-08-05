@@ -10,6 +10,24 @@ body {
 button {
  text-transform: uppercase;
 }
+.pointer {
+    cursor: pointer;
+}
+
+a button.btn.btn-redirect {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.no-values-msg {
+    font-size: 1.2em;
+    color: grey;
+    padding: 0 24px;
+    text-align: center;
+    margin:0px;
+}
+
 .show-measures{
     padding-top: 10px;
 }

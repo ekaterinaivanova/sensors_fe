@@ -1,0 +1,32 @@
+<div class="replication-container">
+    <div class="replication-toolbar">
+        <a class="redirect-button" ui-sref="measurement({measurementId: ctrl.measurementId})">
+            <button
+                type="button"
+                class="btn btn-redirect">Back to measurement</button>
+        </a>
+    </div>
+    <p 
+        class="no-values-msg"
+        ng-show="!ctrl.graphData.length">This replication has no values.</p>
+
+
+    <div class="graph-holder" ng-repeat="data in ctrl.graphData" ng-show="data.length > 0">
+
+       
+
+
+        <line-chart ng-model="ctrl.testModel" data="data"   ng-show="data != null"></line-chart>
+
+        <button  class="btn btn-default btn-sm center-block "
+                 type="button"
+                 ng-csv="data"
+                 filename="{{ ctrl.titles[$index] }}.csv"
+                 csv-header="ctrl.headers[$index]"
+                 field-separator="{{ctrl.separator}}"
+                 decimal-separator="{{ctrl.decimalSeparator}}"
+        >Export</button>
+        <p></p>
+
+    </div>
+</div>

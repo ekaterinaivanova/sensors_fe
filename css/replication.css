@@ -1,0 +1,20 @@
+.replication-container {
+	padding: 16px;
+	margin: 24px;
+	background-color: #f7f7f7;
+	border-radius: 5px; 
+	border: 1px solid #e0e0e0
+}
+
+.replication-container .replication-toolbar {
+	position: relative;
+	height: 52px;
+	border-bottom: 1px solid #e0e0e0;
+	margin-bottom: 24px;
+	padding: 0 0 8px 0;
+
+}
+.replication-container .replication-toolbar .redirect-button{
+	position: absolute;
+    right: 0;
+}

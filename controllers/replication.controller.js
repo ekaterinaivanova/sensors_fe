@@ -2,31 +2,39 @@
  * Created by Administrator on 9.5.2016.
  */
 angular.module("sensors.home.controller", ['sampleRouting','user.model','d2Directive'])
-    .controller('HomeController', function($state, userModel, graphDataModel, dataModel) {
+    .controller('ReplicationController', function($state, userModel, graphDataModel, dataModel) {
 
-        var homeCtrl = this;
+        var vm = this;
+        var user;
 
-        if(!userModel.isLoggedIn()){
-            $state.go("login");
-        }
-
-        var user = userModel.getLocal();
-
-        homeCtrl.headers = [];
-        homeCtrl.titles = [];
+        vm.headers = [];
+        vm.titles = [];
         
-        homeCtrl.brushExtent = [0,0];
-        homeCtrl.testModel = [0,0];
-        homeCtrl.graphData = null;
+        vm.brushExtent = [0,0];
+        vm.testModel = [0,0];
+        vm.graphData = null;
+        vm.measurementId = $state.params.measurementId;
 
-        homeCtrl.decimalSeparator =  user.decimal_point ? "." : ",";
-        homeCtrl.separator = user.delimiter;
-        homeCtrl.getMeasureMeta = getMeasureMeta;
-        homeCtrl.deleteMeasure = deleteMeasure;
+        
+
+        function initialize() {
+            if(!userModel.isLoggedIn()){
+                $state.go("login");
+            } else {
+                user = userModel.getLocal();
+                vm.decimalSeparator =  user.decimal_point ? "." : ",";
+                vm.separator = user.delimiter;
+                vm.getMeasureMeta = getMeasureMeta;
+                vm.deleteMeasure = deleteMeasure;
+                // TODO
+                // getCurrentMeasurements();
+            }
+
+        }
 
         function getCurrentMeasurements () {
             dataModel.getMeasurements().then(function(res){
-                homeCtrl.measurements = res.data;
+                vm.measurements = res.data;
             }, function(err) {})
         }
 
@@ -56,27 +64,23 @@ angular.module("sensors.home.controller", ['sampleRouting','user.model','d2Direc
 
         function getSencorsData () {
             graphDataModel.getSensorsData($state.params.id).then(function(data){
-                homeCtrl.graphData = data;
-                homeCtrl.headers = [];
-                homeCtrl.titles = [];
+                vm.graphData = data;
+                vm.headers = [];
+                vm.titles = [];
                 
 
                 _.forEach(data,
                     function(d){
-                        homeCtrl.headers.push(Object.keys(d[0]));
+                        vm.headers.push(Object.keys(d[0]));
                         var t =  d3.map(d[0])
                             .has("acc_x") ? "accelerotion" : d3.map(d[0]).has("grav_x") ? "gravity" : d3.map(d[0]).has("gyro_x") ? "rotation" : d3.map(d[0]).has("mag_x") ? "magneticfield" : "rawaxcceleration";
-                        homeCtrl.titles.push(t);
+                        vm.titles.push(t);
 
                     })
                 
             }); 
         }
 
-        
-        // getSencorsData()
-        // homeCtrl.getMeasureMeta();
-        //TODO
-        getCurrentMeasurements()
+        initialize();
         
     });

@@ -46,11 +46,6 @@ sampleApp.config(function($stateProvider,$urlRouterProvider, $httpProvider){
     $stateProvider.state('home',{
         url:'/home',
         views:{
-            //'main@':{
-            //    templateUrl: 'templates/home.html',
-            //    controller: 'HomeController as homeCtrl'
-            //
-            //},
             'toppanel@':{
                 templateUrl: 'templates/top-panel.html',
                 controller: 'TopPanelController as topPanelCtrl'
@@ -67,11 +62,11 @@ sampleApp.config(function($stateProvider,$urlRouterProvider, $httpProvider){
  
 
     $stateProvider.state('replication',{
-        url:'/replication/:id',
+        url:'/measurement/:measurementId/replication/:id',
         views:{
             'main@':{
-                templateUrl: 'templates/home.html',
-                controller: 'HomeController as homeCtrl'
+                templateUrl: 'templates/replication.html',
+                controller: 'ReplicationController as ctrl'
             }
             ,
             'toppanel@':{
@@ -88,7 +83,7 @@ sampleApp.config(function($stateProvider,$urlRouterProvider, $httpProvider){
     });
 
     $stateProvider.state('measurement',{
-        url:'/measurement/:id',
+        url:'/measurement/:measurementId',
         views:{
             'main@':{
                 templateUrl: 'templates/measurement.html',

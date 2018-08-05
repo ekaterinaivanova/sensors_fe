@@ -5,9 +5,12 @@ angular.module("sensors.measurements", [])
 
     .controller('MeasurementController', function(apiService, $state) {
         var vm = this;
+        var measurementId = $state.params.measurementId;
+        vm.createReplication = createReplication;
+        vm.stopReplication = stopReplication;
+        vm.diactivateMeasurement =diactivateMeasurement;
 
         function initialize () {
-
             vm.measurementProperties = [
                 {
                     title: 'Date',
@@ -47,10 +50,9 @@ angular.module("sensors.measurements", [])
 
         function fetchReplications() {
             apiService('replications').query({
-                MeasurementID: $state.params.id
+                measurementID: measurementId
             }).then(function(res) {
                 if (res.data && res.data.status === 'AOK') {
-                    console.log(res.data.data.length)
                     vm.replicationNumber = res.data.data.length;
                 } else {
                    vm.replicationNumber = 'Error'; 
@@ -83,7 +85,7 @@ angular.module("sensors.measurements", [])
 
 
         function fetchMeasuremet(callback) {
-            apiService('measurements/' + $state.params.id).query().then(function(res) {
+            apiService('measurements/' + measurementId).query().then(function(res) {
                 if (res.data && res.data.data && res.data.data[0]) {
                     callback(null, res.data.data[0])
                 } else {
@@ -97,7 +99,52 @@ angular.module("sensors.measurements", [])
         function createReplication() {
             apiService('replications').post({
                 MeasurementID: $state.params.MeasurementID
+            }).then(function(res) {
+                console.log(res)
+                if (res.data.status === 'AOK') {
+                    vm.newReplication = res.data.data;
+                    console.log('vm.newReplication', vm.newReplication)
+                } else {
+                    console.log('Couldn\'t create replication')
+                }
+            }, function(err) {
+                console.log('Couldn\'t create replication', err)
             })
         }
+
+        function stopReplication() {
+            apiService('replications/' + vm.newReplication.ID).put(null, {
+                Active: false
+            }).then(function(res) {
+                if (res.data.status === 'AOK') {
+                    vm.newReplication = null;
+                } else {
+                    console.log('Couldn\'t stop replication')
+                }
+            }, function(err) {
+                console.log('Couldn\'t stop replication')
+            })
+        }
+
+        function diactivateMeasurement() {
+            if (vm.newReplication) {
+                alert('You can not diactivate this measurement. You have an active replication.')
+            } else {
+                if (confirm("Are you sure you want to diactivate current measurement?")) {
+                    apiService('measurements/' + measurementId).put(null, {
+                        Active: false
+                    }).then(function(res) {
+                        if (res.data.status === 'AOK') {
+                            vm.measurement.Active = false;
+                        }
+                    }, function (err) {
+
+                    });
+                }
+            }
+            
+            
+        }
+
         initialize();
     });

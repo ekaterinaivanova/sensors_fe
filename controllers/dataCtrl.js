@@ -14,8 +14,11 @@ angular.module("sensors.data.panel.controller", [
         apiService
     ) {
         var vm = this;
+        var removeEndpoint;
+
         vm.email = userModel.getEmail();
-        vm.measures = null;
+        vm.deleteMeasurement = deleteMeasurement;
+        vm.redirectTo = redirectTo;
 
         function initialize() {
             if(!userModel.isLoggedIn()){
@@ -24,37 +27,20 @@ angular.module("sensors.data.panel.controller", [
                 switch ($state.current.name) {
                     case 'home':
                        getMeasurements();
+                       vm.dateParam = 'MeasurementDate';
+                       removeEndpoint = 'measurements';
                     break;
                     case 'measurement':
+                     case 'replication':
                         getReplications($state.params.id);
+                        vm.dateParam = 'Timestamp';
+                        removeEndpoint = 'replications';
                     break;
                     default:
                 }
                 
             }
-
-
-
-
-            // vm.getSensors($state.params.id);
-
-        }
-
-
-        vm.getSensors = function(measure){
-            //vm.showSelectMeasure = true;
-            // getMeasuresById();
-            dataModel.selectedOption = measure;
-            // $state.go("home.replication", {id:measure});
-            //console.log( graphDataModel.getData());
-
-        };
-
-        
-
-        vm.isCurrentMeasure = function(measure){
-            return measure.id_measure == $state.params.id ;
-        }
+        }        
 
         function getReplications(measurementID) {
             apiService('replications').query({
@@ -72,16 +58,39 @@ angular.module("sensors.data.panel.controller", [
                 vm.menuItems = result.data;
             });
         }
+       
+        function deleteMeasurement(id){
 
-        //TODO
-        vm.deleteMeasurement = function(id){
-            dataModel.deleteMeasurement(id).then(function() {
-                _.remove(vm.measurements, function(item) {
-                    return item.ID === id;
-                })
+            apiService(removeEndpoint + '/' + id).delete().then(function(res) {
+                if (res.data.status === 'AOK') {
+                    _.remove(vm.menuItems, function(item) {
+                        return item.ID === id;
+                    });
+                    console.log()
+                }
+                
             },function() {
                 console.log('Couldn\t  delete' + id)
             })
         }
+
+        function redirectTo(option) {
+            switch ($state.current.name) {
+                    case 'home':
+                       $state.go('measurement', {
+                            measurementId: option.ID
+                        });
+                    break;
+                    case 'measurement':
+                    case 'replication':
+                        $state.go('replication', {
+                            id: option.ID,
+                            measurementId: $state.params.measurementId
+                        });
+                    break;
+                    default:
+                }
+        }
+
         initialize();
     });

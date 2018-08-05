@@ -1,7 +1,11 @@
 <div align class="measurement-container">
 	<div class="header-container">
 		<h3>Measurement properties</h3> 
-		<div class="badge">
+		<div 
+			title="{{ctrl.measurement.Active ? 'Diactivate' : ''}}" 
+			class="badge"
+			ng-class="{'pointer': ctrl.measurement.Active}"
+			ng-click="ctrl.measurement.Active ? ctrl.diactivateMeasurement() : null">
 			<span class="active" ng-if="ctrl.measurement.Active">Active</span>
 			<span class="inactive" ng-if="!ctrl.measurement.Active">Inactive</span>
 		</div>
@@ -19,8 +23,23 @@
 	</div>
 
 	<p>This measurement has {{ctrl.replicationNumber}} replications.</p>
-	<div class="bottom-tollbar">
-		<button type="button" class="btn btn-success">Create Replication</button>
+	<div 
+		ng-if="ctrl.measurement.Active"
+		class="bottom-toolbar">
+		<button
+			ng-click="ctrl.createReplication()" 
+			ng-if="!ctrl.newReplication"  
+			type="button" 
+			class="btn btn-success">
+			Start Replication
+		</button>
+		<button 
+			ng-click="ctrl.stopReplication()"
+			ng-if="ctrl.newReplication"  
+			type="button" 
+			class="btn btn-danger">
+			Stop Replication
+		</button>
 	</div>
 	
 </div>
