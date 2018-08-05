@@ -1,0 +1,27 @@
+.headere-container {
+	position: relative;
+    height: 100%;
+    width: 100%;
+    padding: 16px;	
+}
+.headere-container .header-buttons {
+	display: flex;
+}
+
+.headere-container .header-buttons .header-button {
+	margin-right: 12px;
+}
+.header-section .headere-container a {
+	width: 100%;
+}
+.header-section .headere-container a:hover {
+	text-decoration: none;
+}
+.header-section .headere-container h1{
+	text-align: end;
+    width: 100%;
+    cursor: pointer;
+    color: green;
+    font-style: oblique;
+    margin: 0;
+}

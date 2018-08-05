@@ -1,0 +1,22 @@
+<div class="headere-container">
+	<div class="header-buttons">
+		<div class="header-button" ng-repeat="button in headerCtrl.buttons">
+			<a>
+				<button 
+					type="button"
+					class="btn btn-redirect"
+					
+				    ng-click="headerCtrl.buttonTapped(button.action)" >
+				    <span>{{button.name}}</span>
+				</button>
+			</a>
+		</div>
+		<a ui-sref="home">
+			<h1 >
+			    Sensors data
+			</h1>
+		</a>
+	</div>
+	
+	
+</div>

@@ -6,7 +6,7 @@ var sampleApp = angular.module('sampleRouting', [
     'ngResource',
     'sensors.data.panel.controller',
     'controllers',
-    'sensors.top-panel.controller',
+    'sensors.header.controller',
     'sensors.home.users.controller',
     'sensors.home.users.sidebar.controller',
     'sensors.users.data.panel.controller',
@@ -31,8 +31,8 @@ sampleApp.config(function($stateProvider,$urlRouterProvider, $httpProvider){
 
             },
             'toppanel@': {
-                templateUrl: 'templates/top-panel.html',
-                controller: 'TopPanelController as topPanelCtrl'
+                templateUrl: 'templates/header.html',
+                controller: 'HeaderController as headerCtrl'
 
             }
             // 'sidebar@':{
@@ -47,8 +47,8 @@ sampleApp.config(function($stateProvider,$urlRouterProvider, $httpProvider){
         url:'/home',
         views:{
             'toppanel@':{
-                templateUrl: 'templates/top-panel.html',
-                controller: 'TopPanelController as topPanelCtrl'
+                templateUrl: 'templates/header.html',
+                controller: 'HeaderController as headerCtrl'
 
             },
             'sidebar@':{
@@ -70,8 +70,8 @@ sampleApp.config(function($stateProvider,$urlRouterProvider, $httpProvider){
             }
             ,
             'toppanel@':{
-                templateUrl: 'templates/top-panel.html',
-                controller: 'TopPanelController as topPanelCtrl'
+                templateUrl: 'templates/header.html',
+                controller: 'HeaderController as headerCtrl'
 
             },
             'sidebar@':{
@@ -90,8 +90,8 @@ sampleApp.config(function($stateProvider,$urlRouterProvider, $httpProvider){
                 controller: 'MeasurementController as ctrl'
             },
             'toppanel@':{
-                templateUrl: 'templates/top-panel.html',
-                controller: 'TopPanelController as topPanelCtrl'
+                templateUrl: 'templates/header.html',
+                controller: 'HeaderController as headerCtrl'
             },
             'sidebar@':{
                 templateUrl: 'templates/sidebar.html',
@@ -106,8 +106,8 @@ sampleApp.config(function($stateProvider,$urlRouterProvider, $httpProvider){
         views:{
 
             'toppanel@':{
-                templateUrl: 'templates/top-panel.html',
-                controller: 'TopPanelController as topPanelCtrl'
+                templateUrl: 'templates/header.html',
+                controller: 'HeaderController as headerCtrl'
             },
             'sidebar@':{
                 templateUrl: 'templates/users-sidebar.html',
@@ -124,8 +124,8 @@ sampleApp.config(function($stateProvider,$urlRouterProvider, $httpProvider){
                 controller: 'HomeUsersController as homeUsersCtrl'
             },
             'toppanel@':{
-                templateUrl: 'templates/top-panel.html',
-                controller: 'TopPanelController as topPanelCtrl'
+                templateUrl: 'templates/header.html',
+                controller: 'HeaderController as headerCtrl'
 
             },
             'sidebar@':{
@@ -143,8 +143,8 @@ sampleApp.config(function($stateProvider,$urlRouterProvider, $httpProvider){
                 //controller: 'HomeUsersController as homeUsersCtrl'
             },
             'toppanel@':{
-                templateUrl: 'templates/top-panel.html',
-                controller: 'TopPanelController as topPanelCtrl'
+                templateUrl: 'templates/header.html',
+                controller: 'HeaderController as headerCtrl'
 
             },
             'sidebar@':{
@@ -163,8 +163,8 @@ sampleApp.config(function($stateProvider,$urlRouterProvider, $httpProvider){
                 controller: 'HomeUsersDataController as homeUserDataCtrl'
             },
             'toppanel@':{
-                templateUrl: 'templates/top-panel.html',
-                controller: 'TopPanelController as topPanelCtrl'
+                templateUrl: 'templates/header.html',
+                controller: 'HeaderController as headerCtrl'
 
             },
             'sidebar@':{

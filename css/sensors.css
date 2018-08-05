@@ -33,12 +33,7 @@ a button.btn.btn-redirect {
 }
 
 
-.header-section h1{
-    color: #00cc00;
-    font-style: oblique;
-    margin: 16px 0 0 0;
 
-}
 .home-container{
     position: absolute;
     overflow-y: auto;
@@ -58,11 +53,12 @@ a button.btn.btn-redirect {
 
 /*CHANGES*/
 .header-section{
-    position: relative;
+    position: absolute;
     width: 100%;
     height: 72px;
     background: #f7f7f7;
     border-bottom: 1px solid #e0e0e0;
+    padding: 0;
 }
 .graph-section{
     position: relative;
@@ -200,18 +196,6 @@ a:hover {
     background: rgba(255,0,0,0.4);
 }
 
-
-@media  {
-    .row {
-        position: relative;
-    }
-
-    /*.top-panel {*/
-    /*position: absolute;*/
-    /*bottom: 0;*/
-    /*right: 0;*/
-    /*}*/
-}
 .P-8 {
     padding: 8px;
 }
