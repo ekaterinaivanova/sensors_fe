@@ -1,12 +1,3 @@
-.side-nav-container {
-	padding-left: 0!important;
-    height: calc(100% - 72px);
-    position: absolute;
-    min-width: 156px;
-    background-color: #f7f7f7;
-    top:72px;
-
-}
 .sidebar-nav{
     height:  100%;
     overflow-y: auto;

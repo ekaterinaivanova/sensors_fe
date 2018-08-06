@@ -50,7 +50,7 @@ angular.module("sensors.measurements", [])
 
         function fetchReplications() {
             apiService('replications').query({
-                measurementID: measurementId
+                MeasurementID: measurementId
             }).then(function(res) {
                 if (res.data && res.data.status === 'AOK') {
                     vm.replicationNumber = res.data.data.length;
@@ -97,10 +97,9 @@ angular.module("sensors.measurements", [])
         }
 
         function createReplication() {
-            apiService('replications').post({
-                MeasurementID: $state.params.MeasurementID
+            apiService('replications').post(null, {
+                MeasurementID: $state.params.measurementId
             }).then(function(res) {
-                console.log(res)
                 if (res.data.status === 'AOK') {
                     vm.newReplication = res.data.data;
                     console.log('vm.newReplication', vm.newReplication)

@@ -8,7 +8,8 @@
     "angular": "^1.7.2",
     "angular-resource": "^1.7.2",
     "async": "^2.6.1",
-    "lodash": "^4.17.10"
+    "lodash": "^4.17.10",
+    "material-icons": "^0.2.3"
   },
   "devDependencies": {},
   "scripts": {

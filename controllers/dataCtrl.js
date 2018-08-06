@@ -31,8 +31,8 @@ angular.module("sensors.data.panel.controller", [
                        removeEndpoint = 'measurements';
                     break;
                     case 'measurement':
-                     case 'replication':
-                        getReplications($state.params.id);
+                    case 'replication':
+                        getReplications($state.params.measurementId);
                         vm.dateParam = 'Timestamp';
                         removeEndpoint = 'replications';
                     break;
@@ -44,9 +44,8 @@ angular.module("sensors.data.panel.controller", [
 
         function getReplications(measurementID) {
             apiService('replications').query({
-                measurementID: measurementID
+                MeasurementID: measurementID
             }).then(function(res) {
-                dataModel.selectedOption = measurementID
                 vm.menuItems = res.data.data;
             }, function(err) {
 
@@ -66,7 +65,6 @@ angular.module("sensors.data.panel.controller", [
                     _.remove(vm.menuItems, function(item) {
                         return item.ID === id;
                     });
-                    console.log()
                 }
                 
             },function() {

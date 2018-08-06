@@ -6,9 +6,61 @@ body {
     height: 100%;
     overflow: hidden;
 }
+.header-section{
+    position: absolute;
+    width: 100%;
+    height: 72px;
+    background: #f7f7f7;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0;
+}
+
+.home-container{
+    position: absolute;
+    overflow-y: auto;
+    top:72px;
+    left:156px;
+    width: calc(100% - 156px);
+    height: calc(100vh - 72px);
+}
+
+.side-nav-container {
+    padding-left: 0!important;
+    height: calc(100% - 72px);
+    position: absolute;
+    min-width: 156px;
+    background-color: #f7f7f7;
+    top:72px;
+}
+
+@media screen and (max-width: 625px) {
+    .header-section {
+        height: 100px;
+    }
+
+    .home-container{
+        top: 100px;
+    }
+
+    .side-nav-container {
+        top: 100px;
+    }
+}
+
+@media screen and (max-width: 625px) {
+    .header-section {
+        height: 100px;
+    }
+}
 
 button {
  text-transform: uppercase;
+}
+
+button.btn {
+    padding: 8px;
+    font-size: 12px;
+    line-height: 12px;
 }
 .pointer {
     cursor: pointer;
@@ -18,6 +70,23 @@ a button.btn.btn-redirect {
     color: #fff;
     background-color: #6c757d;
     border-color: #6c757d;
+}
+button.btn.btn-action {
+    color: #fff;
+    background-color: #008000;
+    border-color: #005200;
+}
+
+span.icon-btn {
+    line-height: 24px;
+    height: 24px;
+    width: 24px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+span.icon-btn:hover {
+    font-weight: 600;
 }
 
 .no-values-msg {
@@ -34,14 +103,7 @@ a button.btn.btn-redirect {
 
 
 
-.home-container{
-    position: absolute;
-    overflow-y: auto;
-    top:72px;
-    left:156px;
-    width: calc(100% - 156px);
-    height: calc(100vh - 72px);
-}
+
 
 .graph-holder{
     border:solid;
@@ -52,14 +114,7 @@ a button.btn.btn-redirect {
 
 
 /*CHANGES*/
-.header-section{
-    position: absolute;
-    width: 100%;
-    height: 72px;
-    background: #f7f7f7;
-    border-bottom: 1px solid #e0e0e0;
-    padding: 0;
-}
+
 .graph-section{
     position: relative;
     width: 100%;
@@ -199,7 +254,9 @@ a:hover {
 .P-8 {
     padding: 8px;
 }
-
+.MR-12 {
+    margin-right: 12px;
+}
 
 
 

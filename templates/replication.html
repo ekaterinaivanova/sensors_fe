@@ -1,15 +1,49 @@
 <div class="replication-container">
     <div class="replication-toolbar">
-        <a class="redirect-button" ui-sref="measurement({measurementId: ctrl.measurementId})">
-            <button
-                type="button"
-                class="btn btn-redirect">Back to measurement</button>
-        </a>
+        <div class="right-buttons">
+            <a class="redirect-button" ui-sref="measurement({measurementId: ctrl.measurementId})">
+                <button
+                    type="button"
+                    class="btn btn-redirect">
+                    Back to measurement
+                </button>
+            </a>
+        </div>
+       
     </div>
-    <p 
-        class="no-values-msg"
-        ng-show="!ctrl.graphData.length">This replication has no values.</p>
+        
+    <div
+        class="description-form">
+        <span class="metadata-title">Metadata: </span>
+        <div class="description-holder">
+            <p ng-if="!ctrl.editDescription" >{{ctrl.description}}
+                <span ng-if="!ctrl.description">Replication has no descriotion yet.</span>
+            </p>
+            <textarea 
+                placeholder="Enter replication description" 
+                ng-if="ctrl.editDescription" 
+                ng-model="ctrl.description"></textarea>
+            
+            
+                <span 
+                    title="Edit description" 
+                    ng-if="!ctrl.editDescription"
+                    ng-click="ctrl.editDescription = !ctrl.editDescription"
+                    class="icon-btn mi mi-edit"></span>
+                <span 
+                    title="Save changes" 
+                    ng-if="ctrl.editDescription"
+                    ng-click="ctrl.saveReplicationDescription()"
+                    class="icon-btn mi mi-check"></span>
+                <span 
+                    title="Cancel" 
+                    ng-if="ctrl.editDescription"
+                    ng-click="ctrl.cancelEditing()"
+                    class="icon-btn mi mi-close"></span>
+        </div>
+    </div>
 
+   
 
     <div class="graph-holder" ng-repeat="data in ctrl.graphData" ng-show="data.length > 0">
 
@@ -26,7 +60,14 @@
                  field-separator="{{ctrl.separator}}"
                  decimal-separator="{{ctrl.decimalSeparator}}"
         >Export</button>
-        <p></p>
-
     </div>
+   
 </div>
+
+ <div class="replication-container">
+        <p 
+            class="no-values-msg"
+            ng-show="!ctrl.graphData.length">
+            This replication has no values.
+        </p>
+    </div>

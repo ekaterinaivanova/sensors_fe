@@ -8,13 +8,70 @@
 
 .replication-container .replication-toolbar {
 	position: relative;
-	height: 52px;
+	height: 42px;
 	border-bottom: 1px solid #e0e0e0;
 	margin-bottom: 24px;
 	padding: 0 0 8px 0;
 
 }
-.replication-container .replication-toolbar .redirect-button{
+.replication-container .replication-toolbar .right-buttons{
 	position: absolute;
     right: 0;
+}
+
+.replication-container .description-form {
+	width: 100%;
+	margin-top: 24px;
+}
+.replication-container .description-form textarea{
+	width: 100%;
+	border-radius: 4px;
+    border-color: #e0e0e0;
+    max-height: 38px;
+    margin-right: 12px;
+    padding: 7px 8px;
+}
+.replication-container .description-form .descriptoin-holder{
+	background-color: white;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 12px;
+
+}
+.replication-container .description-form .description-holder{
+	display: flex;	
+	justify-content: center;
+}
+.replication-container .description-form .description-holder span.icon-btn:not(:last-child) {
+	margin-right: 4px;
+}
+
+.replication-container .description-form .description-holder span.icon-btn {
+	margin-top: 2px;
+	line-height: 34px;
+	height: 34px;
+	font-size: 20px;
+	width: 38px;
+	border: 1px solid #e0e0e0;
+	border-radius: 4px;
+	font-size: 20px;
+	text-align: center;
+}
+.replication-container .description-form .description-holder p{
+	width: 100%;
+	margin: 0 12px 0 0;
+	color: #505050;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+}
+
+.replication-container .description-form .metadata-title {
+	display: block;
+	font-size: 1.1em;
+    text-transform: uppercase;
+    color: green;
+    font-weight: 500;
+    margin-bottom: 12px;
 }
