@@ -2,7 +2,7 @@
  * Created by Administrator on 9.5.2016.
  */
 angular.module("sensors.home.controller", [])
-    .controller('ReplicationController', function($state, userModel, graphDataModel, dataModel, apiService) {
+    .controller('ReplicationController', function($state, userModel, measurementService, apiService, replicationService, alertingService) {
 
         var vm = this;
         var user;
@@ -19,6 +19,7 @@ angular.module("sensors.home.controller", [])
 
         vm.saveReplicationDescription = saveReplicationDescription;
         vm.cancelEditing = cancelEditing;
+        vm.diactivateReplication = diactivateReplication
         
 
         function initialize() {
@@ -33,6 +34,7 @@ angular.module("sensors.home.controller", [])
                 // TODO
                 // getCurrentMeasurements();
                 fetchMetadata();
+                fetchReplication();
             }
 
         }
@@ -41,24 +43,42 @@ angular.module("sensors.home.controller", [])
             apiService('replication-metadata').query({
                 ReplicationID: $state.params.id
             }).then(function(res) {
-                vm.description = res.data[0].MetaData;
-                descriptionID = res.data[0].ID;
-                originalDescription = angular.copy(vm.description);
+                if (res.data && res.data[0]) {
+                    vm.description = res.data[0].MetaData;
+                    descriptionID = res.data[0].ID;
+                    originalDescription = angular.copy(vm.description);
+                }
             }, function(err) {
                 console.log(err);
             })
         }
 
+        function fetchReplication() {
+            replicationService.fetchReplication($state.params.id).then(function(replication) {
+                vm.replication = replication;
+            }, function(err) {
+                alertingService.Error(err);
+            })
+        }
+
         function getCurrentMeasurements () {
-            dataModel.getMeasurements().then(function(res){
+            measurementService.getMeasurements().then(function(res){
                 vm.measurements = res.data;
             }, function(err) {})
+        }
+
+        function diactivateReplication() {
+            replicationService.stopReplication(vm.replication.ID).then(function() {
+                vm.replication.Active = false;
+            }, function (err) {
+                alertingService.Error(err);
+            })
         }
 
 
         function getMeasureMeta() {
             console.log($state.params.id)
-            dataModel.getMeasureById($state.params.id).then(function(m){
+            measurementService.getMeasureById($state.params.id).then(function(m){
                 if (m) {
                     console.log(m);
                     console.log(m.id_type);
@@ -71,7 +91,7 @@ angular.module("sensors.home.controller", [])
 
         function deleteMeasure(){
             console.log("deleeting....");
-            dataModel.deleteMeasure($state.params.id).then(
+            measurementService.deleteMeasure($state.params.id).then(
                 function(a){
                     console.log(a);
                     // $state.go('^');
@@ -79,7 +99,7 @@ angular.module("sensors.home.controller", [])
             )
         }
 
-        function getSencorsData () {
+      /*  function getSencorsData () {
             graphDataModel.getSensorsData($state.params.id).then(function(data){
                 vm.graphData = data;
                 vm.headers = [];
@@ -93,7 +113,7 @@ angular.module("sensors.home.controller", [])
                         vm.titles.push(t);
                     })
             }); 
-        }
+        }*/
 
         function saveReplicationDescription() {
             var endpoint = 'replication-metadata';

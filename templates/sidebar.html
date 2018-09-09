@@ -1,9 +1,10 @@
     <ul class="sidebar-nav">
         <li 
-        	class="P-8" ng-repeat="option in vm.menuItems" 
+
+        	class="P-8" ng-repeat="option in vm.fetchMenuItems()" 
         	ng-class="{'active':vm.isCurrentMeasure(option)}">
             <a  ng-click="vm.redirectTo(option)">
-               {{option[vm.dateParam] |date:'dd.MM.yyyy HH:mm'}}
+               {{option[vm.dateParam] |date:'dd.MM.yyyy HH:mm'}} 
             </a>
              <img class="close_img" src="assets/img/close1.png" ng-click="vm.deleteMeasurement(option.ID)">
         </li>

@@ -1,17 +1,16 @@
 /**
  * Created by Administrator on 11.5.2016.
  */
-angular.module("sensors.data.panel.controller", [
-    'sampleRouting','user.model','d2Directive','data.model','graph.data.model'])
+angular.module("sensors.data.panel.controller", [])
 
 
     .controller('DataController', function(
         $state,
         $http,
         userModel,
-        graphDataModel,
-        dataModel,
-        apiService
+        measurementService,
+        apiService,
+        replicationService
     ) {
         var vm = this;
         var removeEndpoint;
@@ -19,6 +18,7 @@ angular.module("sensors.data.panel.controller", [
         vm.email = userModel.getEmail();
         vm.deleteMeasurement = deleteMeasurement;
         vm.redirectTo = redirectTo;
+        vm.fetchMenuItems = fetchMenuItems;
 
         function initialize() {
             if(!userModel.isLoggedIn()){
@@ -26,13 +26,12 @@ angular.module("sensors.data.panel.controller", [
             } else {
                 switch ($state.current.name) {
                     case 'home':
-                       getMeasurements();
+                       // getMeasurements();
                        vm.dateParam = 'MeasurementDate';
                        removeEndpoint = 'measurements';
                     break;
                     case 'measurement':
                     case 'replication':
-                        getReplications($state.params.measurementId);
                         vm.dateParam = 'Timestamp';
                         removeEndpoint = 'replications';
                     break;
@@ -40,20 +39,25 @@ angular.module("sensors.data.panel.controller", [
                 }
                 
             }
-        }        
+        }   
 
-        function getReplications(measurementID) {
-            apiService('replications').query({
-                MeasurementID: measurementID
-            }).then(function(res) {
-                vm.menuItems = res.data.data;
-            }, function(err) {
 
-            })
+        function fetchMenuItems() {
+            switch ($state.current.name) {
+                case 'home':
+                   return measurementService.listMeasurements(userModel.getId());
+                break;
+                case 'measurement':
+                case 'replication':
+                   return replicationService.listReplications($state.params.measurementId);
+                break;
+                default:
+            }
+            
         }
 
         function getMeasurements() {
-            dataModel.getMeasurements(userModel.getId()).then(function(result){
+            dataModel.getMeasurements().then(function(result){
                 vm.menuItems = result.data;
             });
         }

@@ -14,7 +14,17 @@
         
     <div
         class="description-form">
-        <span class="metadata-title">Metadata: </span>
+        <div class="header-container">
+            <span class="metadata-title">Metadata: </span>
+            <div 
+                title="{{ctrl.replication.Active ? 'Diactivate' : ''}}" 
+                class="badge"
+                ng-class="{'pointer': ctrl.replication.Active}"
+                ng-click="ctrl.replication.Active ? ctrl.diactivateReplication() : null">
+                <span class="active" ng-if="ctrl.replication.Active">Active</span>
+                <span class="inactive" ng-if="!ctrl.replication.Active">Inactive</span>
+            </div>
+        </div>
         <div class="description-holder">
             <p ng-if="!ctrl.editDescription" >{{ctrl.description}}
                 <span ng-if="!ctrl.description">Replication has no descriotion yet.</span>

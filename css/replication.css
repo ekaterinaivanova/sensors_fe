@@ -68,10 +68,17 @@
 }
 
 .replication-container .description-form .metadata-title {
-	display: block;
+	display: flex;
 	font-size: 1.1em;
     text-transform: uppercase;
     color: green;
     font-weight: 500;
-    margin-bottom: 12px;
+    width: 100%
+}
+
+.description-form .header-container {
+	display: inline-flex;
+    align-items: center;
+    margin-bottom: 24px;
+    width: 100%;	
 }

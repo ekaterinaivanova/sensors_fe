@@ -3,14 +3,15 @@
  */
 angular.module("sensors.measurements", [])
 
-    .controller('MeasurementController', function(apiService, $state) {
+    .controller('MeasurementController', function(apiService, $state, $scope, replicationService) {
         var vm = this;
         var measurementId = $state.params.measurementId;
         vm.createReplication = createReplication;
         vm.stopReplication = stopReplication;
-        vm.diactivateMeasurement =diactivateMeasurement;
+        vm.diactivateMeasurement = diactivateMeasurement;
 
         function initialize () {
+
             vm.measurementProperties = [
                 {
                     title: 'Date',
@@ -49,14 +50,10 @@ angular.module("sensors.measurements", [])
         }
 
         function fetchReplications() {
-            apiService('replications').query({
-                MeasurementID: measurementId
-            }).then(function(res) {
-                if (res.data && res.data.status === 'AOK') {
-                    vm.replicationNumber = res.data.data.length;
-                } else {
-                   vm.replicationNumber = 'Error'; 
-                }
+            replicationService.fetchReplications(measurementId).then(function(replications) {
+                 vm.replicationNumber = replications.length
+            }, function(err) {
+                vm.replicationNumber = 'Error'; 
             })
         }
 
@@ -86,8 +83,8 @@ angular.module("sensors.measurements", [])
 
         function fetchMeasuremet(callback) {
             apiService('measurements/' + measurementId).query().then(function(res) {
-                if (res.data && res.data.data && res.data.data[0]) {
-                    callback(null, res.data.data[0])
+                if (res.data && res.data[0]) {
+                    callback(null, res.data[0])
                 } else {
                     callback('No measurement was found')
                 }
@@ -100,9 +97,11 @@ angular.module("sensors.measurements", [])
             apiService('replications').post(null, {
                 MeasurementID: $state.params.measurementId
             }).then(function(res) {
-                if (res.data.status === 'AOK') {
-                    vm.newReplication = res.data.data;
-                    console.log('vm.newReplication', vm.newReplication)
+                console.log("Create", res)
+                if (res.data) {
+                    vm.newReplication = res.data;
+
+                    console.log('vm.newReplication', $scope.vm)
                 } else {
                     console.log('Couldn\'t create replication')
                 }
@@ -112,14 +111,8 @@ angular.module("sensors.measurements", [])
         }
 
         function stopReplication() {
-            apiService('replications/' + vm.newReplication.ID).put(null, {
-                Active: false
-            }).then(function(res) {
-                if (res.data.status === 'AOK') {
-                    vm.newReplication = null;
-                } else {
-                    console.log('Couldn\'t stop replication')
-                }
+            replicationService.stopReplication(vm.newReplication.ID).then(function(res) {
+                vm.newReplication = null;
             }, function(err) {
                 console.log('Couldn\'t stop replication')
             })

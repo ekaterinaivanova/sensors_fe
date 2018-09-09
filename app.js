@@ -16,7 +16,10 @@ var sampleApp = angular.module('sampleRouting', [
     'sensors.account',
     'constant-module',
     'sensors.measurements',
-    'sensor.directive'
+    'sensor.directive',
+    'services',
+    'data.model',
+    'alertingService'
 ]);
 
 
