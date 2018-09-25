@@ -6,12 +6,12 @@ angular.module('services', [])
         var replications = {};
         var fetching;
 
-        function listReplications(measurementId) {
-            if (!replications[measurementId] && !fetching) {
-                fetchReplications(measurementId);
-            }
-            return replications[measurementId];
-        }
+        // function listReplications(measurementId) {
+        //     if (!replications[measurementId] && !fetching) {
+        //         fetchReplications(measurementId);
+        //     }
+        //     return replications[measurementId];
+        // }
 
         function fetchReplications(measurementId) {
             var deferred = $q.defer();
@@ -49,7 +49,8 @@ angular.module('services', [])
         function stopReplication(replicationId) {
             var deferred = $q.defer();
             apiService('replications/' + replicationId).put(null, {
-                Active: false
+                Active: false,
+                TimestampTo: new Date().getTime()
             }).then(function(res) {
                 deferred.resolve();
             }, function(err) {
@@ -61,7 +62,7 @@ angular.module('services', [])
 
         return {
             stopReplication: stopReplication,
-            listReplications: listReplications,
+            // listReplications: listReplications,
             fetchReplications: fetchReplications,
             fetchReplication: fetchReplication
         }

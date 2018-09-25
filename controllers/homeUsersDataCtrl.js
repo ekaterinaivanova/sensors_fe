@@ -2,7 +2,7 @@
  * Created by Administrator on 13.5.2016.
  */
 
-angular.module("sensors.home.users.data.controller", ['sampleRouting','user.model','d2Directive'])
+angular.module("sensors.home.users.data.controller", ['sampleRouting','user.model'])
     .controller('HomeUsersDataController', function($state, userModel, graphDataModel, homeUsersModel,dataModel) {
 
         var homeCtrl = this;

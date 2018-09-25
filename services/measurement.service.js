@@ -3,7 +3,6 @@
  */
 angular.module('data.model', [])
     .service('measurementService', function($http, userModel, $q, apiService) {
-    	var dataModel = this;
         var userid = null;
         var measureData = {
             availableOptions: null,
@@ -13,8 +12,6 @@ angular.module('data.model', [])
 
         var measurements = {};
         var fetching;
-
-        dataModel.getMeasurements = getMeasurements;
 
         function getMeasures(){
 
@@ -50,7 +47,7 @@ angular.module('data.model', [])
         }
 
 
-        dataModel.deleteMeasurement = function(id) {
+        function deleteMeasurement1(id) {
         	var deferred = $q.defer();
             return apiService('measurements/' + id).delete().then(function(res) {
             	if (res.data.status == "AOK") {
@@ -65,6 +62,7 @@ angular.module('data.model', [])
         };
 
         return {
-            listMeasurements: listMeasurements
+            listMeasurements: listMeasurements,
+            getMeasurements: getMeasurements
         }
     });

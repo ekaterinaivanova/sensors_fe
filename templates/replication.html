@@ -16,14 +16,6 @@
         class="description-form">
         <div class="header-container">
             <span class="metadata-title">Metadata: </span>
-            <div 
-                title="{{ctrl.replication.Active ? 'Diactivate' : ''}}" 
-                class="badge"
-                ng-class="{'pointer': ctrl.replication.Active}"
-                ng-click="ctrl.replication.Active ? ctrl.diactivateReplication() : null">
-                <span class="active" ng-if="ctrl.replication.Active">Active</span>
-                <span class="inactive" ng-if="!ctrl.replication.Active">Inactive</span>
-            </div>
         </div>
         <div class="description-holder">
             <p ng-if="!ctrl.editDescription" >{{ctrl.description}}
@@ -34,50 +26,36 @@
                 ng-if="ctrl.editDescription" 
                 ng-model="ctrl.description"></textarea>
             
-            
-                <span 
-                    title="Edit description" 
-                    ng-if="!ctrl.editDescription"
-                    ng-click="ctrl.editDescription = !ctrl.editDescription"
-                    class="icon-btn mi mi-edit"></span>
-                <span 
-                    title="Save changes" 
-                    ng-if="ctrl.editDescription"
-                    ng-click="ctrl.saveReplicationDescription()"
-                    class="icon-btn mi mi-check"></span>
-                <span 
-                    title="Cancel" 
-                    ng-if="ctrl.editDescription"
-                    ng-click="ctrl.cancelEditing()"
-                    class="icon-btn mi mi-close"></span>
+            <span 
+                title="Edit description" 
+                ng-if="!ctrl.editDescription"
+                ng-click="ctrl.editDescription = !ctrl.editDescription"
+                class="icon-btn mi mi-edit"></span>
+            <span 
+                title="Save changes" 
+                ng-if="ctrl.editDescription"
+                ng-click="ctrl.saveReplicationDescription()"
+                class="icon-btn mi mi-check"></span>
+            <span 
+                title="Cancel" 
+                ng-if="ctrl.editDescription"
+                ng-click="ctrl.cancelEditing()"
+                class="icon-btn mi mi-close"></span>
         </div>
-    </div>
-
-   
-
-    <div class="graph-holder" ng-repeat="data in ctrl.graphData" ng-show="data.length > 0">
-
-       
-
-
-        <line-chart ng-model="ctrl.testModel" data="data"   ng-show="data != null"></line-chart>
-
-        <button  class="btn btn-default btn-sm center-block "
-                 type="button"
-                 ng-csv="data"
-                 filename="{{ ctrl.titles[$index] }}.csv"
-                 csv-header="ctrl.headers[$index]"
-                 field-separator="{{ctrl.separator}}"
-                 decimal-separator="{{ctrl.decimalSeparator}}"
-        >Export</button>
     </div>
    
 </div>
 
- <div class="replication-container">
-        <p 
-            class="no-values-msg"
-            ng-show="!ctrl.graphData.length">
-            This replication has no values.
-        </p>
+<div class="replication-container">
+    <div 
+        style="width:100%; height:400px;"
+        id={{data}}
+        class="graph-holder" 
+        ng-repeat="data in ctrl.graphs" >
     </div>
+    <p
+        class="no-values-msg"
+        ng-if="!ctrl.graphs.length">
+        This replication has no values.
+    </p>
+</div>

@@ -2,15 +2,30 @@
  * Created by Administrator on 10.5.2016.
  */
 angular.module('sensors.header.controller', ['sampleRouting'])
-    .controller('HeaderController', function RegisterController($http, $state, userModel) {
+    .controller('HeaderController', function RegisterController(
+        $http,
+        $state,
+        userModel,
+        alertingService
+    ) {
         var vm = this;
-        vm.isLoggedIn = isLoggedIn;
-        vm.getUserName = getUserName;
-        vm.isAdmin = isAdmin;
+        // vm.isLoggedIn = isLoggedIn;
+        // vm.getUserName = getUserName;
+        // vm.isAdmin = isAdmin;
         vm.buttonTapped = buttonTapped;
 
         function initialize() {
-            vm.buttons = [
+            userModel.cachedProfile().then(function(profile) {
+                setButtons();
+            }, function(err) {
+                alertingService.Error(err);
+                $state.go('login')
+            })
+           
+        }
+
+        function setButtons() {
+             vm.buttons = [
                 {
                     name: 'my data',
                     action: 'home'
@@ -20,7 +35,7 @@ angular.module('sensors.header.controller', ['sampleRouting'])
                     action: 'users'
                 },
                 {
-                    name: 'my account (' + vm.getUserName() + ')',
+                    name: 'my account (' + getUserName() + ')',
                     action: 'account'
                 }
             ];

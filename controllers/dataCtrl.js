@@ -10,15 +10,24 @@ angular.module("sensors.data.panel.controller", [])
         userModel,
         measurementService,
         apiService,
-        replicationService
+        replicationService,
+        $interval,
+        $scope
     ) {
         var vm = this;
         var removeEndpoint;
+        var refreshInterval;
 
         vm.email = userModel.getEmail();
         vm.deleteMeasurement = deleteMeasurement;
         vm.redirectTo = redirectTo;
         vm.fetchMenuItems = fetchMenuItems;
+
+        $scope.$on("$destroy", function() {
+            if (refreshInterval) {
+                $interval.cancel(refreshInterval);
+            }
+        });
 
         function initialize() {
             if(!userModel.isLoggedIn()){
@@ -32,27 +41,34 @@ angular.module("sensors.data.panel.controller", [])
                     break;
                     case 'measurement':
                     case 'replication':
-                        vm.dateParam = 'Timestamp';
+                        vm.dateParam = 'TimestampFrom';
                         removeEndpoint = 'replications';
                     break;
                     default:
                 }
-                
+
+                fetchMenuItems();
+
+                refreshInterval = $interval(fetchMenuItems, 30000);              
             }
         }   
 
 
         function fetchMenuItems() {
+            var promise;
             switch ($state.current.name) {
                 case 'home':
-                   return measurementService.listMeasurements(userModel.getId());
+                   promise =  measurementService.getMeasurements(userModel.getId());
                 break;
                 case 'measurement':
                 case 'replication':
-                   return replicationService.listReplications($state.params.measurementId);
+                   promise = replicationService.fetchReplications($state.params.measurementId);
                 break;
                 default:
             }
+            promise.then(function(items) {
+                vm.menuItems = items;
+            });
             
         }
 
@@ -65,12 +81,9 @@ angular.module("sensors.data.panel.controller", [])
         function deleteMeasurement(id){
 
             apiService(removeEndpoint + '/' + id).delete().then(function(res) {
-                if (res.data.status === 'AOK') {
-                    _.remove(vm.menuItems, function(item) {
-                        return item.ID === id;
-                    });
-                }
-                
+                _.remove(vm.menuItems, function(item) {
+                    return item.ID === id;
+                });                
             },function() {
                 console.log('Couldn\t  delete' + id)
             })

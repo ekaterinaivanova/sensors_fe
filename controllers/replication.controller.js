@@ -2,7 +2,17 @@
  * Created by Administrator on 9.5.2016.
  */
 angular.module("sensors.home.controller", [])
-    .controller('ReplicationController', function($state, userModel, measurementService, apiService, replicationService, alertingService) {
+    .controller('ReplicationController', function(
+        $state,
+        userModel,
+        measurementService,
+        apiService,
+        replicationService,
+        alertingService,
+        sensordataService,
+        graphService,
+        $timeout
+    ) {
 
         var vm = this;
         var user;
@@ -19,9 +29,8 @@ angular.module("sensors.home.controller", [])
 
         vm.saveReplicationDescription = saveReplicationDescription;
         vm.cancelEditing = cancelEditing;
-        vm.diactivateReplication = diactivateReplication
+        vm.diactivateReplication = diactivateReplication;
         
-
         function initialize() {
             if(!userModel.isLoggedIn()){
                 $state.go("login");
@@ -56,6 +65,9 @@ angular.module("sensors.home.controller", [])
         function fetchReplication() {
             replicationService.fetchReplication($state.params.id).then(function(replication) {
                 vm.replication = replication;
+                if (vm.replication.TimestampTo) {
+                    fetchMeasurementReplicationValues();
+                }
             }, function(err) {
                 alertingService.Error(err);
             })
@@ -77,7 +89,6 @@ angular.module("sensors.home.controller", [])
 
 
         function getMeasureMeta() {
-            console.log($state.params.id)
             measurementService.getMeasureById($state.params.id).then(function(m){
                 if (m) {
                     console.log(m);
@@ -88,32 +99,42 @@ angular.module("sensors.home.controller", [])
            });
         };
 
+        function fetchMeasurementReplicationValues() {
+            sensordataService.fetchValues($state.params.id).then(function(values) {
+                var temp = {};
+
+                values.forEach(function(value) {
+                    if (!temp[value.SensorID]) {
+                        temp[value.SensorID] = [];
+                    }
+
+                    temp[value.SensorID].push(value);
+                });
+
+                vm.graphs = [];
+                var randomHash
+                _.each(temp, function(item, key) {
+                    randomHash = Math.random().toString(36).substring(2);
+                    vm.graphs.push(randomHash);
+                });
+
+                $timeout(function() {
+                    vm.graphs.forEach(function(hash, index) {
+                         var title = 'Sensor ' + (index + 1);
+                        graphService.getConfiguration(temp[index + 1], title, hash);
+                    })
+                });
+            })
+        }
+
 
         function deleteMeasure(){
-            console.log("deleeting....");
             measurementService.deleteMeasure($state.params.id).then(
                 function(a){
                     console.log(a);
-                    // $state.go('^');
                 }
             )
         }
-
-      /*  function getSencorsData () {
-            graphDataModel.getSensorsData($state.params.id).then(function(data){
-                vm.graphData = data;
-                vm.headers = [];
-                vm.titles = [];
-                
-                _.forEach(data,
-                    function(d){
-                        vm.headers.push(Object.keys(d[0]));
-                        var t =  d3.map(d[0])
-                            .has("acc_x") ? "accelerotion" : d3.map(d[0]).has("grav_x") ? "gravity" : d3.map(d[0]).has("gyro_x") ? "rotation" : d3.map(d[0]).has("mag_x") ? "magneticfield" : "rawaxcceleration";
-                        vm.titles.push(t);
-                    })
-            }); 
-        }*/
 
         function saveReplicationDescription() {
             var endpoint = 'replication-metadata';

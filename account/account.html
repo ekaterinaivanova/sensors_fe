@@ -1,6 +1,46 @@
-<h1>My account</h1>
-<!--< class="user-info">-->
-    <div class="row" >
+<div class="account-container" align>
+    <div class="sensors-toolbar ">
+        <h1>My account</h1>
+        <span 
+            title="Edit" 
+            ng-if="!accountCtrl.editingAccount"
+            ng-click="accountCtrl.editAccount()"
+            class="icon-btn mi mi-edit"></span>
+        <span 
+            title="Save changes" 
+            ng-if="accountCtrl.editingAccount"
+            ng-click="accountCtrl.saveAccountData()"
+            class="icon-btn mi mi-check submit"></span>
+        <span 
+            title="Cancel" 
+            ng-if="accountCtrl.editingAccount"
+            ng-click="accountCtrl.cancelEditing()"
+            class="icon-btn mi mi-close"></span>
+    </div>
+    <div class="property" ng-repeat="row in accountCtrl.rows">
+        <span class="property-title">{{row.title}}</span>
+        <span ng-if="!accountCtrl.editingAccount">{{row.value}}</span>
+        <div
+            ng-class="{'hide':!accountCtrl.editingAccount}"
+            ng-switch="row.type">
+            <input 
+                ng-switch-when="input" 
+                ng-model="accountCtrl.form[row.param]">
+
+            <input 
+                type="checkbox"
+                ng-switch-when="checkbox" 
+                ng-model="accountCtrl.form[row.param]">
+            <select 
+                ng-switch-when="select"
+                ng-model="accountCtrl.form[row.param]" 
+                ng-options="o as o for o in accountCtrl.decimalPointOptions" 
+                ng-change="accountCtrl.saveChanges()"></select>
+        </div>
+    </div>
+</div>
+
+<!--     <div class="row" >
         <div class="col-xs-6">
             <p>Name</p>
         </div>
@@ -38,9 +78,7 @@
             <p>Delimiter</p>
         </div>
         <div class="col-xs-6">
-            <!--<p>{{accountCtrl.getUser().delimiter}}</p>-->
             <input type="text" ng-model="accountCtrl.delimiter">
-
 
         </div>
     </div>
@@ -49,16 +87,15 @@
             <p>Decimal delimiter</p>
         </div>
         <div class="col-xs-6">
-            <!--<p>{{accountCtrl.getUser().decimal_point ? "." : ","}}</p>-->
             <select ng-model="accountCtrl.decimalSeparator" ng-options="o as o for o in accountCtrl.decimalPointOptions" ng-change="accountCtrl.change()"></select>
         </div>
     </div>
+ -->
 
 
 
 
-
-    <div class="row" >
+<!--     <div class="row" >
         <div class=col-xs-3>
             <button type="submit"  class="btn btn-info btn-sm" ng-click="accountCtrl.saveChanges()">Save</button>
 
@@ -72,7 +109,7 @@
 
         </div>
 
-    </div>
+    </div> -->
 
 
 

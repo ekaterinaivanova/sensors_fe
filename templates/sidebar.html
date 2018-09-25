@@ -1,7 +1,7 @@
     <ul class="sidebar-nav">
         <li 
 
-        	class="P-8" ng-repeat="option in vm.fetchMenuItems()" 
+        	class="P-8" ng-repeat="option in vm.menuItems" 
         	ng-class="{'active':vm.isCurrentMeasure(option)}">
             <a  ng-click="vm.redirectTo(option)">
                {{option[vm.dateParam] |date:'dd.MM.yyyy HH:mm'}} 

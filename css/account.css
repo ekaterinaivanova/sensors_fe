@@ -1,0 +1,48 @@
+.account-container {
+	padding: 16px;
+	margin: 34px;
+	background-color: #f7f7f7;
+	border-radius: 5px;
+	border: 1px solid #e0e0e0;
+}
+.account-container .sensors-toolbar h1 {
+	color: green;
+    margin: 0;
+    font-size: 1.4em;
+    text-transform: uppercase;
+    width: 100%
+}
+
+.account-container .property {
+	margin-bottom: 12px;
+	font-weight: 500;
+}
+
+
+.account-container .property div {
+	display: inline-block;
+}
+.account-container .property div.hid {
+	display: none;
+}
+.account-container .property .property-title {
+	display: inline-block;
+	color: grey;
+	white-space: nowrap;
+	margin-right: 24px;
+}
+
+.account-container span.icon-btn {
+	margin-left: 8px;
+    line-height: 34px;
+    height: 34px;
+    width: 38px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 20px;
+    text-align: center;
+}
+.account-container span.icon-btn.submit {
+	color: green;
+	border-color: green;
+}

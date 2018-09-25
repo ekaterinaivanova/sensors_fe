@@ -3,7 +3,7 @@ angular.module('constant-module', [])
         var apiHost = 'http://localhost:8484'
        return function(entity) {
             var endpoint = apiHost + '/' + entity;
-            var resource =  {
+            var request =  {
                 post: function(params, data) {
                     return $http({
                         url: endpoint,
@@ -35,7 +35,7 @@ angular.module('constant-module', [])
                     })
                 }
             };
-            return resource;
+            return request;
         };
 
     });

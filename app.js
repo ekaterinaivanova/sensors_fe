@@ -1,8 +1,9 @@
 /**
  * Created by EkaterinaAcc on 14-Apr-16.
  */
-var sampleApp = angular.module('sampleRouting', [
+var app = angular.module('sampleRouting', [
     'ui.router',
+    'ngRoute',
     'ngResource',
     'sensors.data.panel.controller',
     'controllers',
@@ -11,19 +12,23 @@ var sampleApp = angular.module('sampleRouting', [
     'sensors.home.users.sidebar.controller',
     'sensors.users.data.panel.controller',
     'sensors.home.users.data.controller',
-    'ngSanitize',
-    'ngCsv',
     'sensors.account',
     'constant-module',
     'sensors.measurements',
     'sensor.directive',
     'services',
     'data.model',
-    'alertingService'
+    'alertingService',
+    'sensordata',
+    'graph'
 ]);
 
 
-sampleApp.config(function($stateProvider,$urlRouterProvider, $httpProvider){
+app.config(function(
+    $stateProvider,
+    $urlRouterProvider,
+    $httpProvider
+){
 
     $stateProvider.state('account', {
         url: '/account',
@@ -201,10 +206,9 @@ sampleApp.config(function($stateProvider,$urlRouterProvider, $httpProvider){
 
     });
     $urlRouterProvider.otherwise('/home');
-
-  
-
-
-
 });
+
+app.config(['$resourceProvider', function($resourceProvider) {
+  $resourceProvider.defaults.cancellable = true;
+}]);
 

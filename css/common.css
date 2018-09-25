@@ -1,0 +1,14 @@
+.sensors-toolbar {
+	display: inline-flex;
+    align-items: center;
+    margin-bottom: 24px;
+    width: 100%;
+}
+
+.sensor-card {
+	padding: 16px;
+    margin: 24px;
+    background-color: #f7f7f7;
+    border-radius: 5px;
+    border: 1px solid #e0e0e0;
+}
