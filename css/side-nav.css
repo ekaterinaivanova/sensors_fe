@@ -22,6 +22,10 @@
     border-bottom: 1px solid #e0e0e0;
     min-width: 156px;
 }
+
+.sidebar-nav li.active {
+    font-weight: 500;
+}
 .sidebar-nav li a {
     display: inline-block;
     text-decoration: none;

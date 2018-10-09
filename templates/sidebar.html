@@ -2,7 +2,7 @@
         <li 
 
         	class="P-8" ng-repeat="option in vm.menuItems" 
-        	ng-class="{'active':vm.isCurrentMeasure(option)}">
+        	ng-class="{'active':option.currentlySelected}">
             <a  ng-click="vm.redirectTo(option)">
                {{option[vm.dateParam] |date:'dd.MM.yyyy HH:mm'}} 
             </a>

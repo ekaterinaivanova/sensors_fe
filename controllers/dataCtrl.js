@@ -67,6 +67,24 @@ angular.module("sensors.data.panel.controller", [])
                 default:
             }
             promise.then(function(items) {
+                items.forEach(function(item) {
+                    switch ($state.current.name) {
+                        case 'home':
+                         if (item.ID === $state.params.measurementId) {
+                            item.currentlySelected = true;
+                         }
+                           
+                        break;
+                        case 'measurement':
+                        case 'replication':
+                            if (item.ID === $state.params.id) {
+                                item.currentlySelected = true;
+                            }
+                        break;
+                        default:
+                    }
+                    
+                })
                 vm.menuItems = items;
             });
             
@@ -90,21 +108,25 @@ angular.module("sensors.data.panel.controller", [])
         }
 
         function redirectTo(option) {
+            vm.menuItems.forEach(function(item) {
+                item.currentlySelected = false;
+            });
+            option.currentlySelected = true;
             switch ($state.current.name) {
-                    case 'home':
-                       $state.go('measurement', {
-                            measurementId: option.ID
-                        });
-                    break;
-                    case 'measurement':
-                    case 'replication':
-                        $state.go('replication', {
-                            id: option.ID,
-                            measurementId: $state.params.measurementId
-                        });
-                    break;
-                    default:
-                }
+                case 'home':
+                   $state.go('measurement', {
+                        measurementId: option.ID
+                    });
+                break;
+                case 'measurement':
+                case 'replication':
+                    $state.go('replication', {
+                        id: option.ID,
+                        measurementId: $state.params.measurementId
+                    });
+                break;
+                default:
+            }
         }
 
         initialize();
